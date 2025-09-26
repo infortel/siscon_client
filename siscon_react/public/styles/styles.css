@@ -1,0 +1,95 @@
+/*********************************************************/
+.root {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    /* Disable text selection in all browsers */
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    user-select: none;
+    font-size: 1px; /* This was added to default for small text size areas */
+}
+/*********************************************************/
+.heading {
+    font-family: Arial;
+    color: #eeeeee;
+    background-color: #000000;
+}
+/*********************************************************/
+.divide-line {
+    height: 1px;
+    width: 100%;
+}
+.color-main >{ background-color: hsl(0, 100%, 21%); }
+.color-designer { background-color: #007415c1; }
+
+.screen-root {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+.screen-lateral-box {
+    padding: 4px;
+    background-color:  #444444;
+}
+.screen-menu {
+    padding: 4px;
+    background-color:  #444444;
+}
+.screen-menu-bar {
+    background-color: #cccccc;
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: bold;
+    color: #00089b;
+    gap: 2px;
+    padding: 2px;
+}
+.screen-toolbox {
+    padding: 3px;
+    background-color: #444444;
+}
+.screen-toolbox-dialog {
+    padding: 0px;
+    background-color: #dddddd;
+    border: 1px solid #888888;
+}
+/*********************************************************/
+.Select_Company {
+    font-family: Arial;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #eeeeee;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+    .Select_Company > * {
+        outline-width: 2px;
+        padding: 4px;
+    }
+.Select_Company-box-normal {
+    border: 2px solid #888888;
+    background-color: white;
+}
+.Select_Company-box-selected {
+    border: 2px solid #444444;
+    background-color: white;
+    box-shadow: 4px 4px #444444;
+}
+.Select_Company-box-selecting {
+    border: 1px solid #aaaaaa;
+    background-color: white;
+    box-shadow: 4px 4px #888888;
+    opacity: 0.5;
+}
+
+/* For the child: .Select_Company > * {} */
+/*********************************************************/
+
+/*********************************************************/

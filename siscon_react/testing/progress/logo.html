@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Progress Screen - Moving Oval</title>
+</head>
+<body>
+    <style>
+        body {
+            margin: 0;
+            background: #f0f0f0;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+        #oval {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: #828282;
+            border-radius: 25% / 50%;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            top: 0;
+            left: 0;
+        }
+        #progress-text {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Arial, sans-serif;
+            font-size: 2em;
+            color: #555;
+            z-index: 2;
+            pointer-events: none;
+        }
+    </style>
+    <div id="progress-text">SISCON</div>
+    
+    <script>
+        let message=document.getElementById('progress-text');
+
+        const oval=new Array(9);
+        for (i=0; i<9; i++) {
+            oval[i]=document.createElement('div');
+            document.body.appendChild(oval[i]);
+            oval[i].id="oval";
+        }
+
+
+        const screenW = window.innerWidth;
+        const screenH = window.innerHeight;
+        const ovalW = 80, ovalH = 40;
+        const horiz_offset = ovalW*1.05;
+        const verti_offset = ovalH*1.2;
+        let dynamicSpeed=4;
+        let dynamicX=0;
+
+        
+
+        function animate() {
+            const centerX = screenW / 2 - ovalW / 2;
+            const centerY = screenH / 2 - ovalH / 2;
+            const speed = 0.0;
+
+            const x = centerX+dynamicX;
+            const y = centerY;
+
+            message.style.top=screenH/2-4*verti_offset+'px';
+            message.style.left=(screenW-x-50)+'px';
+
+            //t=2;
+            for (t=-2; t<=2; t++) {
+                    index=0;
+                    count=0;
+                    left=0;
+                    top=0;
+                    switch (t) {
+                        case -2: index=0; count=1; left=centerX; break;
+                        case -1: index=1; count=2; left=centerX-horiz_offset/2; break;
+                        case 0: index=3; count=3; left=centerX-horiz_offset; break;
+                        case 1: index=6; count=2; left=centerX-horiz_offset/2; break;
+                        case 2: index=8; count=1; left=centerX; break;
+                    }
+                for (h=0; h<count; h++) {
+                    l=(dynamicX+left+h*horiz_offset);
+                    oval[index+h].style.left = (dynamicX+left+h*horiz_offset) + 'px';
+                    oval[index+h].style.top = (centerY+t*verti_offset) + 'px';
+                }
+            }
+
+            if (x>screenW-horiz_offset*2 || x<horiz_offset) {
+                dynamicSpeed=-dynamicSpeed;
+            }
+            dynamicX+=dynamicSpeed;
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

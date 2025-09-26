@@ -1,0 +1,18 @@
+Installed modules:
+
+//npm install classnames
+npm install history
+
+Git: 
+====
+
+Download: www.git-scm.com
+
+Commit = Change of version number or a small change.
+Push = Copy from Master to Origin
+Pull/Clone = Copy from Origin to Master
+
+..........................................
+June2022-How to fix deployment: Modify index.html:
+    <base href="">
+    <script .... src="static/js/main..."

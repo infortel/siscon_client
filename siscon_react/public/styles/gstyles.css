@@ -1,0 +1,332 @@
+
+/*********************************************************/
+.GGrid {
+    border: 1px solid; /*Perimetral distance between border and text.*/
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: normal;
+    background-color: #444444; /*Color to be applied to general background (separator)*/
+}
+
+.GGrid-body {
+    background-color: white;
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+/*
+.GGrid-row_selected {
+    background-color: #cefaff;
+}
+*/
+
+.GGrid-heading {
+    background-color: #cccccc;
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.GGrid-icon {
+    height: 8px;
+    opacity: 0.5;
+}
+.GGrid-icon:hover {
+    height: 8px;
+    opacity: 1;
+}
+
+.GGrid-filter {
+    font-family: Arial;
+    font-size: 8px;
+    font-weight: normal;
+    width: 100px;
+}
+.GGrid-filter-match {
+    font-weight: bold;
+}
+/*********************************************************/
+.GPopup-shield {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #00000044;
+    margin: 0;
+    z-index: 1;
+    overflow: auto;
+}
+.GPopup {
+}
+.GPopup-outer {
+    background-color: #666666;
+    border: 1px solid #444444;
+}
+.GPopup-box {
+    padding: 0px;
+    border: 2px solid #444444;
+    background-color: #ffffff
+}
+.GPopup-heading {
+    background-color: #035afc;
+    width: 100%;
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+/*********************************************************/
+.embedded-box {
+    padding: 0px;
+    border: 2px solid #444444;
+}
+
+.embedded-heading {
+    background-color: #444444;
+    width: 100%;
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+}
+.embedded {
+    position: absolute; /* or absolute */
+    z-index: 10;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    box-shadow: 6px 6px #888888;
+    padding: 0px;
+    border: 0px solid #6b0014;
+}
+/*********************************************************/
+.GTabs {
+    /*border: 1px solid #888888;*/
+    /*background-color: #dddddd;*/
+}
+.GTabs-selected {
+    background-color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    border: 1px solid black;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.GTabs-unselected {
+    background-color: #cccccc;
+    font-size: 10px;
+    font-weight: normal;
+    border: 1px solid black;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+/*********************************************************/
+.GMenutitle {
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 9px;
+    font-weight: bold;
+    border: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+.GMenutitle:hover {
+    background-color: #505050;
+}
+.GMenuitem {
+    color: #c1c1c1;
+    font-family: Arial;
+    font-weight: normal;
+    font-size: 9px;
+    border: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+.GMenuitem-image {
+    height: 16px;
+}
+.GMenuitem-image-box {
+    width: 24px;
+}
+.GMenuitem:hover {
+    background-color: #707070;
+}
+/*********************************************************/
+.GWidgetpanel-bar {
+    background-color: #aaaaaa;
+    font-family: Arial;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.GWidgetpanel {
+    border: 2px solid;
+    border-color: #666666;
+    background-color: #444444;
+}
+.GWidgetpanel-widget-cell {
+    padding: 4px
+}
+/*********************************************************/
+.GWidget-bar {
+    background-color: #dddddd;
+    font-family: Arial;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.GWidget {
+    border-collapse: collapse;
+    background-color: white;
+    border: 2px solid;
+    border-right: 4px solid;
+    border-bottom: 4px solid;
+    border-color: #666666;
+}
+
+/*********************************************************/
+.GEdit {
+    font-family: Arial;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.GEdit-button {
+    background-color: #222222;
+    width: 4px;
+    height: 18px;
+}
+/*********************************************************/
+.GGeneral-all {
+    color: #000000;
+    font-family: Arial;
+    font-size: 10px;
+}
+.GGeneral-caption {
+    color: #000000;
+    font-family: Arial;
+    font-size: 7px;
+}
+/*********************************************************/
+.GLabel {
+}
+/*********************************************************/
+.GTextarea {
+    font-family: Arial;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+}
+.GTextarea {
+    font-family: Arial;
+    font-size: 10px;
+}
+.GTextarea-caption {
+    color: #444444;
+    font-family: Arial;
+    font-size: 8px;
+}
+/*********************************************************/
+.GListbox {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+.GListbox-caption {
+    color: #444444;
+    font-family: Arial;
+    font-size: 8px;
+}
+/*********************************************************/
+.GCombobox {
+    font-family: Arial;
+    font-size: 10px;
+}
+.GCombobox-caption {
+    color: #444444;
+    font-family: Arial;
+    font-size: 8px;
+}
+/*********************************************************/
+.GTextarea {
+    font-family: Arial;
+    font-size: 10px;
+}
+.GTextarea-caption {
+    color: #444444;
+    font-family: Arial;
+    font-size: 8px;
+}
+/*********************************************************/
+.GAttach {
+}
+/*********************************************************/
+.GButton {
+    font-family: Arial;
+    font-size: 10px;
+}
+/*********************************************************/
+.GToggle {
+    border-radius: 8px;
+    display: inline-block;
+    cursor: pointer;
+    color: #000000;
+    font-family: Arial;
+    font-size: 12px;
+    padding: 2px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px
+}
+
+.GToggle-on {
+    background-image: linear-gradient(#8fffb8, #c9ffdd);
+    border: 4px solid #006b28;
+}
+
+.GToggle-off {
+    background-image: linear-gradient(#ffb3c1, #fae3e8);
+    border: 4px solid #6b0014;
+}
+/*********************************************************/
+.GTree {
+}
+.GTree-item {
+    list-style-type: none;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: normal;
+}
+.GTree-item-selected {
+    list-style-type: none;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid black;
+    background-color: white;
+    padding: 0px;
+}
+.GTree-group {
+    list-style-type: none;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+}
+.GTree-ul {
+    /* padding-left: 8px; Tabulation size */
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+/*********************************************************/
+.GCheckbox {
+    font-family: Arial;
+    font-size: 8px;
+}
+/*********************************************************/
+.GCheckbox-box {
+     width: 8px;
+    height: 8px;
+}
+/*********************************************************/

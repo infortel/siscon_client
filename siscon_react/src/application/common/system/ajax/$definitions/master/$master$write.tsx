@@ -1,0 +1,23 @@
+export class $master$write {
+    static COMMAND:string="master.write"
+
+    static I_TABLE:string="table"
+    static I_CODE:string="code"
+    static I_KEYFIELD_NAME:string="keyfield_name"
+    static I_AUX_ROW:string="row"
+    static I_AUXILIARY_CODE:string="auxiliary_code"
+    static I_AUXILIARIES:string="auxiliaries"
+    static I_AUXILIARIES_X_ROWS:string="rows"
+    static I_AUXILIARIES_X_ROWS_ROW:string="row"
+    static I_AUXILIARY_X_CONNECT_FIELD:string="connect_field"
+    static I_AUXILIARY_X_POSITION_FIELD:string="position_field"
+    static I_ALLOW_INTEGRATION:string="allow_integration"
+    static I_IS_GLOBAL:string="is_global"
+    static I_COMPANIES_EXPORT:string="companies_export"
+    static O_CODE_EXISTS:string="code_exists"
+    static O_CODE_CREATED:string="code_created"
+    static O_MESSAGE:string="message"
+    static O_BUDGET_DATA:string="budget_data"
+    static O_BUDGET_DATA_ROW:string="row"
+    static O_BUDGET_DATA_DATE_FIELD_:string="date_"
+}

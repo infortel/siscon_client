@@ -1,0 +1,22 @@
+export class $database$query_open {
+    static COMMAND:string="database.query_open"
+
+    static I_SQL:string="sql"
+    static I_NAME:string="name"
+    static I_LIMIT:string="limit"
+    static I_USE_GLOBAL_CONNECTION:string="use_global_connection"
+    static I_PARAMETERS:string="null"
+    static I_COUNT:string="count"
+    static I_RETURN_ROWS:string="return_rows"
+    static I_BASE_POSITION:string="base_position"
+    static I_SUMMARIZE_RESULTS:string="summarize_results"
+    static I_OMMIT_ERROR:string="ommit_error"
+    static I_DO_AUDIT:string="do_audit"
+    static O_COUNT:string="count"
+    static O_COLUMN_COUNT:string="column_count"
+    static O_COLUMNS:string="columns"
+    static O_COLUMNS_COLUMN_NAME:string="column_name"
+    static O_SQL_ERROR:string="sql_error"
+    static O_ROWS:string="rows"
+    static O_ROWS_ROW:string="row"
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Progress Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 32px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 24px;
+            font-size: 2em;
+            color: #333;
+        }
+        .progress-bar {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 32px;
+            margin-bottom: 16px;
+        }
+        .progress {
+            height: 100%;
+            background: #1976d2;
+            width: 70%;
+            color: #fff;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            transition: width 0.4s;
+        }
+        .progress-label {
+            margin-bottom: 8px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Progress</h1>
+        <div class="progress-label">Task Completion</div>
+        <div class="progress-bar">
+            <div class="progress" id="progress" style="width: 70%;">70%</div>
+        </div>
+        <button onclick="increaseProgress()">Increase</button>
+        <button onclick="decreaseProgress()">Decrease</button>
+        <button onclick="decreaseProgress()">Test</button>
+    </div>
+    <script>
+        let progress = 70;
+        function updateProgress() {
+            const progressEl = document.getElementById('progress');
+            progressEl.style.width = progress + '%';
+            progressEl.textContent = progress + '%';
+        }
+        function increaseProgress() {
+            if (progress < 100) {
+                progress += 10;
+                if (progress > 100) progress = 100;
+                updateProgress();
+            }
+        }
+        function decreaseProgress() {
+            if (progress > 0) {
+                progress -= 10;
+                if (progress < 0) progress = 0;
+                updateProgress();
+            }
+        }
+    </script>
+</body>
+</html>

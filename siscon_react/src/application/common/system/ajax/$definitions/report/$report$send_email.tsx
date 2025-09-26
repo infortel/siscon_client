@@ -1,0 +1,23 @@
+export class $report$send_email {
+    static COMMAND:string="report.send_email"
+
+    static I_FORM_NAME:string="form_name"
+    static I_REFERENCE:string="reference"
+    static I_EMAIL:string="email"
+    static I_EMAIL_TO:string="to"
+    static I_EMAIL_FROM:string="from"
+    static I_EMAIL_SUBJECT:string="subject"
+    static I_EMAIL_BODY:string="body"
+    static O_CONTEXT:string="context"
+    static I_PARAMDATA:string="paramdata"
+    static I_PARAMDATA_ROW:string="row"
+    static I_PARAMDATA_ROW_CODE:string="code"
+    static I_PARAMDATA_ROW_VALUE:string="value"
+    static O_PARAMETERS:string="null"
+    static O_PARAMDATA:string="paramdata"
+    static O_PARAMDATA_ROW:string="row"
+    static O_PARAMDATA_ROW_CODE:string="code"
+    static O_PARAMDATA_ROW_DESCRIPTION:string="description"
+    static O_PARAMDATA_ROW_DEFAULT:string="default"
+    static O_PARAMDATA_ROW_TYPE:string="type"
+}

@@ -1,0 +1,23 @@
+export class $payroll$process {
+    static COMMAND:string="payroll.process"
+
+    static I_TYPE:string="type"
+    static I_FINAL_PAYROLL:string="final_payroll"
+    static I_OMMIT_ALERTS:string="ommit_alerts"
+    static I_DATE:string="date"
+    static I_DATE1:string="date1"
+    static I_DATE2:string="date2"
+    static I_PAYMENT_CODE:string="payment_code"
+    static I_EXCHANGE_RATE:string="exchange_rate"
+    static I_SPECIAL_PAYROLL:string="special_payroll"
+    static I_INCLUDE_PAYROLL:string="include_payroll"
+    static I_INCLUDE_ON_VACATION:string="include_on_vacation"
+    static I_INCLUDE_ON_ABSENCE:string="include_on_absence"
+    static I_INCLUDE_ON_SUSPENDED:string="include_on_suspended"
+    static I_FORCE_THIS_PAYMENT:string="force_this_payment"
+    static O_REFERENCE:string="reference"
+    static O_MESSAGE:string="message"
+    static O_COUNT:string="count"
+    static O_ERRORS:string="errors"
+    static O_ALERTS:string="alerts"
+}
