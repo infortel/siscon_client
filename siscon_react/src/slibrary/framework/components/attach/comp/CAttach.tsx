@@ -1,6 +1,6 @@
-import CComponent from "../../components_base/CComponent"
-import Log from "../../../general/Log";
-import { STObjectAny, STElement, STypes } from "../../../general/STypes";
+import CComponent from "../../../components_base/CComponent"
+import Log from "../../../../general/Log";
+import { STObjectAny, STElement, STypes } from "../../../../general/STypes";
 
 /*
 This gadget is used for program pre defined features. Each feature is hard coded and identified via "id" 

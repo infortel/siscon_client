@@ -23,25 +23,6 @@ https://divtable.com/table-styler/
         this._dgrid=this.gadget.dgrid() as DGrid
 
         this.gadget.set_com(this)
-        //if (GString.isStringWithText(this.gadget.def.class_name())) this._classname2 = this.gadget.def.class_name()
-        if (this.gadget.gadgets().is_designing()) {
-            let fields:string[]=["first", "second"]
-            if (this._dgrid) {
-                this._dgrid.field().set_fields(fields)
-
-                //Set heading
-                for (let f = 0; f < fields.length; f++) {
-                    this._dgrid.head().set(0,fields[f],"Fieldname="+fields[f])
-                }
-
-                //Set body.
-                for (let r = 0; r < 2; r++) {
-                    for (let f = 0; f < fields.length; f++) {
-                        this._dgrid.body().set(r,fields[f],"Column="+f+" Fieldname="+fields[f])
-                    }
-                }
-            }
-        }
     }
     //*************************************************************************
     eventClick0 = (event: STObjectAny) => {

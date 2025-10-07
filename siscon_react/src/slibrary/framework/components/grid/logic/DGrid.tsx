@@ -1,7 +1,8 @@
 import { STObjectAny, STValue } from "../../../../general/STypes"
 import Gadget from "../../Gadget"
+import { Toptions } from "../../Gadget_def"
 import { DGrid_body } from "./DGrid_body"
-import { TGridData } from "./DGrid_data_base"
+import { TGridRowData } from "./DGrid_data_base"
 import { DGrid_display } from "./DGrid_display"
 import { DGrid_field } from "./DGrid_field"
 import DGrid_head from "./DGrid_head"
@@ -27,6 +28,37 @@ export class DGrid {
         this._body = new DGrid_body(this)
         this._field = new DGrid_field(this)
         this._display = new DGrid_display(this)
+
+        //Populate grid options.
+        const options: Toptions[] | null = gadget.def.options_arr()
+        if (options) { 
+            const title:TGridRowData[]=[{}]
+            for (const option of options) {
+                title[0][option.value]=option.caption   
+            }
+            this.head().set_all_rows(title,true,true)
+        } else if (this.gadget().gadgets().is_designing()) {
+            this._populate_design_data()
+        }
+    }
+    //*************************************************************************
+    private _populate_design_data():void {
+        if (this.gadget().gadgets().is_designing()) {
+            let fields:string[]=["first", "second"]
+            this.field().set_fields(fields)
+
+            //Set heading
+            for (let f = 0; f < fields.length; f++) {
+                this.head().set(0,fields[f],"Fieldname="+fields[f])
+            }
+
+            //Set body.
+            for (let r = 0; r < 2; r++) {
+                for (let f = 0; f < fields.length; f++) {
+                    this.body().set(r,fields[f],"Column="+f+" Fieldname="+fields[f])
+                }
+            }
+        }
     }
     //*************************************************************************
     public gadget():Gadget {

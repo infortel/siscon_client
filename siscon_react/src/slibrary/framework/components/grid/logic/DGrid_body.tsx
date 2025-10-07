@@ -13,7 +13,8 @@ export class DGrid_body extends DGrid_data_base {
     constructor(dgrid:DGrid) {
         super(dgrid)
         this._selection_count = this.dgrid.gadget().def.selection_count()
-        }
+        this.adjust_row_count()
+    }
     //*************************************************************************
     public on_clicked(row:number, col:number) {
         if (this.dgrid.gadget().get_on_selected()) this.dgrid.gadget().get_on_selected()!()
@@ -104,5 +105,32 @@ export class DGrid_body extends DGrid_data_base {
         //if (typeof result==="string") return result
         return String(result)
     }
+    //*************************************************************************
+    public adjust_row_count() {
+        if (this.dgrid.gadget().def.readonly()) return
 
+        //This is an editable grid. Adjust rows.
+        let last=this.get_row_count()-1
+        if (last<0) {
+            //Add an empty row
+            this.set_row_count(1);
+            return
+        }
+        
+        if (this.is_row_empty(last)) {
+            //Last row is empty. Remove all empty rows at the end, except one
+            let c=0
+            while (last>=1 && this.is_row_empty(last-1)) {
+                last--;
+                c++;
+            }
+            if (c) this.set_row_count(last+1);
+            return
+        } else {
+            //Last row is not empty. Add an empty row
+            this.set_row_count(last+2);
+            return
+        }
+    }
+    //*************************************************************************
 }

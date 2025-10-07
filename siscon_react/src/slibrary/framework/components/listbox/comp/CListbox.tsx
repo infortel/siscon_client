@@ -31,9 +31,11 @@ export default class CListbox extends CComponent {
     private _getListRender(isCombobox:boolean): STElement {
 
         let eleCaptions: STElement[] = []
-        for (const item of this.gadget.dlist()!.get_options()) {
-            const key = this.key(["option",item.value])
-            eleCaptions.push(<option value={item.value} key={key}>{item.caption}</option>)
+        if (this.gadget.get_options()) {
+            for (const item of this.gadget.get_options()!) {
+                const key = this.key(["option",item.value])
+                eleCaptions.push(<option value={item.value} key={key}>{item.caption}</option>)
+            }
         }
 
         let size=0

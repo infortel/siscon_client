@@ -1,6 +1,6 @@
 import { STValue } from "../../../../general/STypes";
 import { DGrid } from "./DGrid";
-import { TGridData } from "./DGrid_data_base";
+import { TGridRowData } from "./DGrid_data_base";
 
 export class DGrid_field {
     //*************************************************************************
@@ -15,7 +15,7 @@ export class DGrid_field {
         return this._display_fields[col]
     }
     //*************************************************************************
-    public populate(data: TGridData): void {
+    public populate(data: TGridRowData): void {
         this._display_fields=[]
         if (data.length > 0) {
             for (let key in data[0]) {

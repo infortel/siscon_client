@@ -3,7 +3,7 @@ import { KeyManagement } from "../../../../general/KeyManagement"
 import { STValue } from "../../../../general/STypes"
 import Gadget from "../../Gadget"
 import { DGrid } from "./DGrid"
-import { DGrid_data_base, TGridData } from "./DGrid_data_base"
+import { DGrid_data_base, TGridRowData } from "./DGrid_data_base"
 
 export default class DGrid_head extends DGrid_data_base {
 //*************************************************************************
