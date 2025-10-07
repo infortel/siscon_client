@@ -1,18 +1,18 @@
 import * as React from 'react';
-import Log from '../../../general/Log';
-import { STElement, STNull, STObjectAny } from '../../../general/STypes';
-import Gadget from '../../gadget/Gadget';
-import CComponent from "../../components_base/CComponent"
-import { Embedded } from '../../general/Embedded';
-import CWidget from '../cwidget/CWidget';
-import SMetrics from '../../../general/SMetrics';
+import Log from '../../../../general/Log';
+import { STElement, STNull, STObjectAny } from '../../../../general/STypes';
+import Gadget from '../../../gadget/Gadget';
+import CComponent from "../../../components_base/CComponent"
+import { Embedded } from '../../../general/Embedded';
+import CWidget from '../../widget/comp/CWidget';
+import SMetrics from '../../../../general/SMetrics';
 import CWidgetpanel_Definitions, { T_GWidgetpanel_Def } from './CWidgetpanel_Definitions';
-import T from '../../../translate/T';
+import T from '../../../../translate/T';
 import { useRef } from 'react';
-import Gadgets from '../../gadgets/Gadgets';
+import Gadgets from '../../../gadgets/Gadgets';
 import { renderToString } from 'react-dom/server'
-import Gen from '../../../general/Gen';
-import GetReactElementsFor_GadgetChildren from '../../general/GetReactElementsFor_GadgetChildren';
+import Gen from '../../../../general/Gen';
+import GetReactElementsFor_GadgetChildren from '../../../general/GetReactElementsFor_GadgetChildren';
 
 export default class CWidgetpanel extends CComponent {
     _widgetDefs:CWidgetpanel_Definitions|STNull=null

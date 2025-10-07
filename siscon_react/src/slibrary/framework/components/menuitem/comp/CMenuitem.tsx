@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Log from '../../../general/Log';
-import { STObjectAny } from '../../../general/STypes';
-import CComponent from "../../components_base/CComponent"
-import Gadget_constants from '../../gadget/Gadget_constants';
+import Log from '../../../../general/Log';
+import { STObjectAny } from '../../../../general/STypes';
+import CComponent from "../../../components_base/CComponent"
+import Gadget_constants from '../../../gadget/Gadget_constants';
 
 export default class CMenuitem extends CComponent {
     constructor(props:any) {
@@ -27,7 +27,7 @@ export default class CMenuitem extends CComponent {
             let tab = 0
             if (rootGadget) {
                 //Omit tab for first item.
-                if (this.gadget.get_parent()!.isGMenutitle() || this.gadget.get_parent()!.isGMenuitem()) {
+                if (this.gadget.get_parent()!.isMenutitle() || this.gadget.get_parent()!.isMenuitem()) {
                     tab = rootGadget.def.tab() ?? 0                
                 }
             }

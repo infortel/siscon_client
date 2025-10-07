@@ -11,7 +11,7 @@ import { STObjectAny } from "../../../../slibrary/general/STypes";
 import GObject from "../../../../slibrary/general/GObject";
 import Element_Properties_Commands from "../properties/Element_Properties_Commands";
 import { KeyManagement } from "../../../../slibrary/general/KeyManagement";
-import GPopup_Windows from "../../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 
 export type Tda = {
     designer_mode: Gadget

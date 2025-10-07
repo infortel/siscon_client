@@ -1,15 +1,14 @@
 import { createRoot } from 'react-dom/client';
-import CPanel from "../components/cpanel/CPanel"
-import CButton from "../components/cbutton/CButton";
-import CToggle from "../components/ctoggle/CToggle";
-import CEdit from "../components/cedit/CEdit";
-import CLabel from "../components/clabel/CLabel";
+import CPanel from "../components/panel/comp/CPanel"
+import CToggle from "../components/toggle/comp/CToggle";
+import CEdit from "../components/edit/comp/CEdit";
+import CLabel from "../components/label/comp/CLabel";
 import GDefinitions from "../gadget/GDefinitions";
-import CImage from "../components/cimage/CImage";
-import CCheckbox from "../components/ccheckbox/CCheckbox";
-import CCombobox from "../components/ccombobox/CCombobox";
-import CListbox from "../components/clistbox/CListbox";
-import CPopup from "../components/cpopup/CPopup";
+import CImage from "../components/image/comp/CImage";
+import CCheckbox from "../components/checkbox/comp/CCheckbox";
+import CCombobox from "../components/combobox/comp/CCombobox";
+import CListbox from "../components/listbox/comp/CListbox";
+import CPopup from "../components/popup/comp/CPopup";
 import Log from "../../general/Log";
 import CComponent from "../components_base/CComponent";
 import GObject from "../../general/GObject";
@@ -20,19 +19,21 @@ import { STAjaxPacket, STElement, STGadget_event, STNull, STObjectAny, STValue }
 import Commands from "../general/Commands";
 import SMetrics from "../../general/SMetrics";
 import Ajax from "../../../application/common/system/ajax/Ajax";
-import CMenuitem from "../components/cmenuitem/CMenuitem";
-import CMenutitle from "../components/cmenutitle/CMenutitle";
-import CTree from "../components/ctree/CTree";
-import CWidget from "../components/cwidget/CWidget";
-import CWidgetpanel from "../components/cwidgetpanel/CWidgetpanel";
+import CMenuitem from "../components/menuitem/comp/CMenuitem";
+import CMenutitle from "../components/menutitle/comp/CMenutitle";
+import CTree from "../components/tree/comp/CTree";
+import CWidget from "../components/widget/comp/CWidget";
+import CWidgetpanel from "../components/widgetpanel/comp/CWidgetpanel";
 import Gadgets_def from "./Gadgets_head";
-import CWidgetpanel_Definitions, { T_GWidgetpanel_Def } from "../components/cwidgetpanel/CWidgetpanel_Definitions";
-import CAttach from "../components/cattach/CAttach";
-import CGrid from "../components/cgrid/CGrid";
+import CWidgetpanel_Definitions, { T_GWidgetpanel_Def } from "../components/widgetpanel/comp/CWidgetpanel_Definitions";
+import CAttach from "../components/attach/comp/CAttach";
+import CGrid from "../components/grid/comp/CGrid";
 import T from "../../translate/T";
 import { $general$files$read_relative_file } from "../../../application/common/system/ajax/$definitions/general/files/$general$files$read_relative_file";
-import CTabs from "../components/ctab/CTabs";
-import { CTextarea } from '../components/ctextarea/CTextarea';
+import CTabs from "../components/tab/comp/CTabs";
+import { CTextarea } from '../components/textarea/comp/CTextarea';
+import CButton from '../components/button/comp/CButton';
+import GPopup_Window from '../components/popup/logic/GPopup_Window';
 /*
 Gadgets.get_instance()------g<----owner-Gadgets...
                             g
@@ -279,25 +280,25 @@ export default class Gadgets {
     //******************************************************************
     static get_element_from_name(name:string):CComponent {
         let result : any
-        if (name === GDefinitions.GAttach) result = CAttach
-        else if (name === GDefinitions.GButton) result = CButton
-        else if (name === GDefinitions.GCheckbox) result = CCheckbox
-        else if (name === GDefinitions.GCombobox) result = CCombobox
-        else if (name === GDefinitions.GEdit) result = CEdit
-        else if (name === GDefinitions.GGrid) result = CGrid
-        else if (name === GDefinitions.GImage) result = CImage
-        else if (name === GDefinitions.GLabel) result = CLabel
-        else if (name === GDefinitions.GListbox) result = CListbox
-        else if (name === GDefinitions.GMenutitle) result = CMenutitle
-        else if (name === GDefinitions.GMenuitem) result = CMenuitem
-        else if (name === GDefinitions.GPanel) result = CPanel
-        else if (name === GDefinitions.GPopup) result = CPopup
-        else if (name === GDefinitions.GTabs) result = CTabs
-        else if (name === GDefinitions.GTextarea) result = CTextarea
-        else if (name === GDefinitions.GToggle) result = CToggle
-        else if (name === GDefinitions.GTree) result = CTree
-        else if (name === GDefinitions.GWidget) result = CWidget
-        else if (name === GDefinitions.GWidgetpanel) result = CWidgetpanel
+        if (name === GDefinitions.Attach) result = CAttach
+        else if (name === GDefinitions.Button) result = CButton
+        else if (name === GDefinitions.Checkbox) result = CCheckbox
+        else if (name === GDefinitions.Combobox) result = CCombobox
+        else if (name === GDefinitions.Edit) result = CEdit
+        else if (name === GDefinitions.Grid) result = CGrid
+        else if (name === GDefinitions.Image) result = CImage
+        else if (name === GDefinitions.Label) result = CLabel
+        else if (name === GDefinitions.Listbox) result = CListbox
+        else if (name === GDefinitions.Menutitle) result = CMenutitle
+        else if (name === GDefinitions.Menuitem) result = CMenuitem
+        else if (name === GDefinitions.Panel) result = CPanel
+        else if (name === GDefinitions.Popup) result = CPopup
+        else if (name === GDefinitions.Tabs) result = CTabs
+        else if (name === GDefinitions.Textarea) result = CTextarea
+        else if (name === GDefinitions.Toggle) result = CToggle
+        else if (name === GDefinitions.Tree) result = CTree
+        else if (name === GDefinitions.Widget) result = CWidget
+        else if (name === GDefinitions.Widgetpanel) result = CWidgetpanel
         return result
     }
     //******************************************************************
@@ -338,7 +339,7 @@ export default class Gadgets {
     get_gadget_tab(table: string, field: string): Gadget | STNull {
         let result: Gadget | STNull = null
         this.forEach(Gadgets.LEVEL_BASIC, (gadget) => {
-            if (!result) if (gadget.def.table() === table) if (gadget.def.field() === field) {
+            if (!result) if (gadget.def.table() === table) if (gadget.def.field0() === field) {
                 result = gadget
             }
         })
@@ -702,7 +703,7 @@ export default class Gadgets {
 
         this.forEach(Gadgets.LEVEL_BASIC, (gadget:Gadget) => {
             if (gadget.def.table() === tablename) {
-                const field=gadget.def.field();
+                const field=gadget.def.field0();
                 if (field) fields.push(field);
             }
         })
@@ -713,7 +714,7 @@ export default class Gadgets {
     public fields_populate(tablename:string, jsonFields: any=undefined): void {
         this.forEach(Gadgets.LEVEL_BASIC, (gadget:Gadget) => {
             if (gadget.def.table() === tablename) {
-                const fieldname=gadget.def.field();
+                const fieldname=gadget.def.field0();
                 if (fieldname) {
                     let gadget=this.get_gadget_tab(tablename,fieldname)
                     let value=jsonFields[fieldname]
@@ -730,6 +731,66 @@ export default class Gadgets {
     public get_definition_head(key:string):string|null {
         if (this._definition.head[key]) return this._definition.head[key]
         else return null
+    }
+    //*****************************************************
+    public data_to_gadgets(table:string, data: STObjectAny): void {
+        try {
+            this.forEach(Gadgets.LEVEL_BASIC, (gadget) => {
+                gadget.clear_modifications()
+                if (gadget.def.table() === table) {
+                    const field = gadget.def.field0()
+                    if (field) {
+                        let val = data[field]
+                        gadget.set_value(val)
+                        /*
+                        if (false && field === "fields" && gadget.isGrid()) {
+                            //Special case for fields grid.
+                            if (val) {
+                                gadget.dgrid()!.body().set_all_rows(val,false,false)
+                            } else {
+                                gadget.dgrid()!.body().clear(false)
+                            }
+                        } else {
+                            gadget.set_value(null) //Set null to activate state with new value.
+                            if (GObject.isValid(val)) {
+                                if (val instanceof Object) {
+                                    val = JSON.stringify(val)
+                                }
+                                gadget.set_value(val)
+                            }
+
+                        }
+                        */
+                    }
+                }
+            })
+
+        } catch (e) {
+            Log.logExc("Gadgets.data_to_gadgets",e)
+        }
+    }
+    //*****************************************************
+    public gadgets_to_data(table:string, definition: STObjectAny):void {
+        try {
+            this.forEach(Gadgets.LEVEL_BASIC, (gadget) => {
+                if (gadget.def.table() === table) if (gadget.get_modifications() > 0) {
+                    let val = gadget.get_value()
+                    if (val === "") val = null
+                    if (gadget.isCheckbox()) if (!GObject.isTrue(val)) val = null
+                    if (gadget.isToggle()) if (!GObject.isTrue(val)) val = null
+                    const field = gadget.def.field0()
+                    if (field) {
+                        if (GObject.isValid(val)) {
+                            definition[field] = val
+                        } else {
+                            delete definition[field]
+                        }
+                    }
+                }
+            })
+        } catch (e) {
+        Log.logExc("Gadgets.gadgets_to_data",e)
+        }
     }
     //******************************************************************
 }

@@ -1,7 +1,7 @@
-import CComponent from "../../components_base/CComponent"
-import Log from "../../../general/Log";
+import CComponent from "../../../components_base/CComponent"
+import Log from "../../../../general/Log";
 import * as React from "react";
-import { STElement, STObjectAny } from "../../../general/STypes";
+import { STElement, STObjectAny } from "../../../../general/STypes";
 
 export default class CLabel extends CComponent {
     constructor(props:any) {

@@ -8,8 +8,8 @@ import Param from "../../common/Param";
 import Metrics from "../../common/metrics/Metrics";
 import Gen from "../../../slibrary/general/Gen";
 import GDefinitions from "../../../slibrary/framework/gadget/GDefinitions";
-import GPopup_Windows from "../../../slibrary/framework/popup_windows/GPopup_Windows";
-import Attach from "../../../slibrary/framework/gadget/gadget_data/dattach/Attach";
+import GPopup_Windows from "../../../slibrary/framework/components/popup/logic/GPopup_Windows";
+import Attach from "../../../slibrary/framework/components/attach/logic/Attach";
 import GString from "../../../slibrary/general/GString";
 import { $database$select_company } from "../../common/system/ajax/$definitions/database/$database$select_company";
 import { $database$get_company_list } from "../../common/system/ajax/$definitions/database/$database$get_company_list";
@@ -36,7 +36,7 @@ export class Select_Company_Attach extends Attach {
     reset_and_render() {
         //this._execute_on_companies_read=execute_on_companies_read
         this._companies = null
-        this._gadget.activate_rendering()
+        this._gadget.render()
     }
     //*************************************************************************
     get_companies_from_server(callback: STCallBack_Basic): void {
@@ -54,7 +54,7 @@ export class Select_Company_Attach extends Attach {
     //*************************************************************************
     _companySelection(company_code: string): void {
         if (this._gadget.gadgets().is_designing()) return 
-        this._gadget!.activate_rendering()
+        this._gadget!.render()
         this._selecting_transition = company_code
 
         const $=$database$select_company
@@ -132,7 +132,7 @@ export class Select_Company_Attach extends Attach {
         }
 
         if (!done) {
-            this.get_companies_from_server(() => {this._gadget!.activate_rendering()})
+            this.get_companies_from_server(() => {this._gadget!.render()})
             return <label key="select_company-reading">...reading from server...</label>
         }
         return <></> //This is never executed.

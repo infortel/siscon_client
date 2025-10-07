@@ -1,7 +1,7 @@
 import Param from "../../../common/Param"
 import Designer from "../core/Designer";
 import Log from "../../../../slibrary/general/Log"
-import GPopup_Windows from "../../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import Commands from "../../../../slibrary/framework/general/Commands";
 import Designer_Constants from "../core/Designer_Constants";
 import Gadgets from "../../../../slibrary/framework/gadgets/Gadgets";
@@ -14,7 +14,7 @@ import Ajax from "../../../common/system/ajax/Ajax";
 import { STAjaxPacket, STObjectAny } from "../../../../slibrary/general/STypes";
 import { Grid_Selector } from "../../../dialogs/grid_selector/Grid_Selector";
 import T from "../../../../slibrary/translate/T";
-import { DGrid } from "../../../../slibrary/framework/gadget/gadget_data/dgrid/DGrid";
+import { DGrid } from "../../../../slibrary/framework/components/grid/logic/DGrid";
 
 export default class Document_Properties_Commands extends Commands_General {
     //***************************************************************************
@@ -31,7 +31,7 @@ export default class Document_Properties_Commands extends Commands_General {
         if (Designer.designing_gadgets) {
             Designer.designing_gadgets!._css = null
             const popup = GPopup_Windows.get(Page_Name.DESIGNER_DOCUMENT_PROPERTIES)
-            Properties_Library.editing_to_gadgets(popup!, Designer.designing_gadgets._definition.head)
+            popup!.gadgets.gadgets_to_data(Properties_Library._TABLE_EDIT, Designer.designing_gadgets._definition.head)
             if (GPopup_Windows.get(Page_Name.DESIGNER_DOCUMENT_PROPERTIES)) {
                 GPopup_Windows.get(Page_Name.DESIGNER_DOCUMENT_PROPERTIES)!.close()
             }

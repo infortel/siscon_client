@@ -1,7 +1,7 @@
 import Program_Base from "../../../../../application/common/entry/Program_Base"
 import { KeyManagement } from "../../../../general/KeyManagement"
 import { STValue } from "../../../../general/STypes"
-import Gadget from "../../Gadget"
+import Gadget from "../../../gadget/Gadget"
 import { DGrid } from "./DGrid"
 import { DGrid_data_base, TGridRowData } from "./DGrid_data_base"
 

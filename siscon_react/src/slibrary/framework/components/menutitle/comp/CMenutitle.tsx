@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Log from '../../../general/Log';
-import { STElement, STNull, STObjectAny } from '../../../general/STypes';
-import Gadget from '../../gadget/Gadget';
-import { Embedded } from '../../general/Embedded';
-import CComponent from '../../components_base/CComponent';
+import Log from '../../../../general/Log';
+import { STElement, STNull, STObjectAny } from '../../../../general/STypes';
+import Gadget from '../../../gadget/Gadget';
+import { Embedded } from '../../../general/Embedded';
+import CComponent from '../../../components_base/CComponent';
 
 export default class CMenutitle extends CComponent {
     private static IMAGE_MENU_TITLE_CLOSED="images/gadgets/gmenutitle/common/menu_title_closed.png"
@@ -35,7 +35,7 @@ export default class CMenutitle extends CComponent {
                 if (this.gadget.get_first_child()) if (!this.gadget.get_first_child()!.is_hidden()) menuImage = CMenutitle.IMAGE_MENU_TITLE_OPENED
 
                 //Omit tab for first item.
-                if (this.gadget.get_parent()!.isGMenutitle() || this.gadget.get_parent()!.isGMenuitem()) {
+                if (this.gadget.get_parent()!.isMenutitle() || this.gadget.get_parent()!.isMenuitem()) {
                     tab = rootGadget.def.tab() ?? 0                
                 }
             }

@@ -1,13 +1,13 @@
 import Gadget from "../../../../slibrary/framework/gadget/Gadget";
-import GPopup_Window from "../../../../slibrary/framework/popup_windows/GPopup_Window";
+import GPopup_Window from "../../../../slibrary/framework/components/popup/logic/GPopup_Window";
 import {STNull} from "../../../../slibrary/general/STypes";
 import Log from "../../../../slibrary/general/Log";
-import GPopup_Windows from "../../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import Ajax_Monitor_Commands from "./Ajax_Monitor_Commands";
 import T from "../../../../slibrary/translate/T";
 import Ajax from "../../../common/system/ajax/Ajax";
 import Page_Name from "../../../common/generals/Page_Name";
-import { DGrid } from "../../../../slibrary/framework/gadget/gadget_data/dgrid/DGrid";
+import { DGrid } from "../../../../slibrary/framework/components/grid/logic/DGrid";
 
 export type Tda = {
     history: Gadget

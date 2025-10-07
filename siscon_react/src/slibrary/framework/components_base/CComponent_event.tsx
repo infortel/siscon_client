@@ -52,7 +52,7 @@ export default class CComponent_event {
 
             if (this.com.apply_command()) {
 
-                if (this.gadget.isGToggle()) {
+                if (this.gadget.isToggle()) {
                     if (this.gadget.get_value()) {
                         this.gadget.set_value(0)
                     } else {
@@ -124,7 +124,7 @@ export default class CComponent_event {
                 this.gadget.set_selected(true)
             }
 
-            try { this.gadget.activate_rendering() } catch (e) { }
+            try { this.gadget.render() } catch (e) { }
         }
     }
     //*****************************************************
@@ -141,7 +141,7 @@ export default class CComponent_event {
         if (this.com.apply_command()) {
 
             this._last_change_text = event.target.value
-            if (this.gadget.isGCheckbox() || this.gadget.isGCombobox()) {
+            if (this.gadget.isCheckbox() || this.gadget.isCombobox()) {
                 try {
                     if (this.gadget.get_value()===event.target.value) return
                 } catch (e) {
@@ -153,7 +153,7 @@ export default class CComponent_event {
 
             this.gadget.register_modification()
 
-            if (this.gadget.isGCheckbox()) {
+            if (this.gadget.isCheckbox()) {
                 //Convert to the digital value.
                 if (GObject.isValid(event.target.checked)) {
                     if (event.target.checked) this._last_change_text = "1";
@@ -161,16 +161,16 @@ export default class CComponent_event {
                 }
             }
 
-            if (this.gadget.isGEdit() || this.gadget.isGTextarea()) {
+            if (this.gadget.isEdit() || this.gadget.isTextarea()) {
                 this.com.setState({ text: this._last_change_text })
-            } if (this.gadget.isGListbox() || this.gadget.isGCombobox()) {
+            } if (this.gadget.isListbox() || this.gadget.isCombobox()) {
                 this.com.assign_data_after_change_finish(event)
             } else {
                 this.com.reset_changecount_focused()
                 this.com.set_gadget_value_from_text(this._last_change_text)
             }
 
-            if (!this.gadget.isGEdit() || this.gadget.isGTextarea()) this.com._reportGadgetOnChange(event)
+            if (!this.gadget.isEdit() || this.gadget.isTextarea()) this.com._reportGadgetOnChange(event)
 
             this.gadget.event.dynamic_change(this._last_change_text)
 

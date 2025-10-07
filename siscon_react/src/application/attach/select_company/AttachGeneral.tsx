@@ -1,6 +1,6 @@
 import Gadget from "../../../slibrary/framework/gadget/Gadget"
-import Attach from "../../../slibrary/framework/gadget/gadget_data/dattach/Attach"
-import { GAttachGeneral } from "../../../slibrary/framework/gadget/gadget_data/dattach/GAttachGeneral"
+import Attach from "../../../slibrary/framework/components/attach/logic/Attach"
+import { GAttachGeneral } from "../../../slibrary/framework/components/attach/logic/GAttachGeneral"
 import { Select_Company_Attach } from "./Select_Company_Attach"
 
 export class AttachGeneral extends GAttachGeneral {

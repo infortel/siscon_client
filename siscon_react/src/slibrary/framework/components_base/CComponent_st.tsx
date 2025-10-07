@@ -5,7 +5,7 @@ import SMetrics from "../../general/SMetrics";
 import { STNull } from "../../general/STypes";
 import SEvaluate from "../../sevaluations/SEvaluate";
 import Gadget from "../gadget/Gadget";
-import { Toptions } from "../gadget/gadget_data/dlist/DList";
+import { Toptions } from "../gadget/Gadget_def";
 import CComponent from "./CComponent";
 
 export type MyState = {

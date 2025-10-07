@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Log from '../../../general/Log';
-import { STNull, STObjectAny } from '../../../general/STypes';
-import Gadget from '../../gadget/Gadget';
-import CComponent from "../../components_base/CComponent"
-import { Embedded } from '../../general/Embedded';
-import CWidgetpanel from '../cwidgetpanel/CWidgetpanel';
-import Gadgets from '../../gadgets/Gadgets';
+import Log from '../../../../general/Log';
+import { STNull, STObjectAny } from '../../../../general/STypes';
+import Gadget from '../../../gadget/Gadget';
+import CComponent from "../../../components_base/CComponent"
+import { Embedded } from '../../../general/Embedded';
+import CWidgetpanel from '../../widgetpanel/comp/CWidgetpanel';
+import Gadgets from '../../../gadgets/Gadgets';
 
 export default class CWidget extends CComponent {
     constructor(props: any) {

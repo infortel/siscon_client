@@ -1,8 +1,8 @@
-import { STElement, STNull, STObjectAny } from "../../../general/STypes"
-import CComponent from "../../components_base/CComponent"
+import { STElement, STNull, STObjectAny } from "../../../../general/STypes"
+import CComponent from "../../../components_base/CComponent"
 import * as React from "react";
 import CTree_Inter, { CTreeItem } from "./CTree_Inter";
-import GObject from "../../../general/GObject";
+import GObject from "../../../../general/GObject";
 
 //export type GTree_item_clicked_event = (item: GTreeItem) => void
 
@@ -23,7 +23,7 @@ export default class CTree extends CComponent {
     item_onClick(event: STObjectAny, item: CTreeItem) {
         if (CTree_Inter.is_group(item)) {
             item.expanded = (!item.expanded)
-            this.gadget.activate_rendering()
+            this.gadget.render()
         } else {
             //if (this.item_clicked_event) this.item_clicked_event(item)
             this.gadget.set_value(item.code)

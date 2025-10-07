@@ -119,7 +119,7 @@ export default class CComponent extends Component<MyProps,MyState> {
                 this.set_gadget_value_from_text(this.event._last_change_text)
             }
             this.focused = false;
-            if ((this.gadget.isGEdit()  || this.gadget.isGTextarea()) && this._changecount_focused > 0) this._reportGadgetOnChange(event)
+            if ((this.gadget.isEdit()  || this.gadget.isTextarea()) && this._changecount_focused > 0) this._reportGadgetOnChange(event)
             this._changecount_focused = 0
 
             //Execute script on change if active.
@@ -142,13 +142,13 @@ export default class CComponent extends Component<MyProps,MyState> {
                     let text_value = this.get_value_as_text()
                     if (GObject.isInvalid(text_value)) text_value = ""
                     if (
-                        (this.gadget.isGEdit())
-                        || (this.gadget.isGCheckbox())
-                        || (this.gadget.isGTextarea())
-                        || (this.gadget.isGToggle())
+                        (this.gadget.isEdit())
+                        || (this.gadget.isCheckbox())
+                        || (this.gadget.isTextarea())
+                        || (this.gadget.isToggle())
                     ) {
                         this.setState({text: text_value})
-                    } else if (this.gadget.isGImage()) {
+                    } else if (this.gadget.isImage()) {
                         this.setState({image: this.gadget.def.image()})
                     } else {
                         let st = this.get_value_as_text()
@@ -356,7 +356,7 @@ export default class CComponent extends Component<MyProps,MyState> {
             console.log(Utility.timestamp()+this.gadget.get_string_detail(CComponent._render_report_layers))
         }
 
-        if (false) if (this.gadget.isGGrid()) {
+        if (false) if (this.gadget.isGrid()) {
             console.log("\n========================================"+this.gadget.get_string_detail(0)+"+\n" + renderToString(render_data)) 
         }
     }

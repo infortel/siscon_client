@@ -1,6 +1,6 @@
 import { STObjectAny, STValue } from "../../../../general/STypes"
-import Gadget from "../../Gadget"
-import { Toptions } from "../../Gadget_def"
+import Gadget from "../../../gadget/Gadget"
+import { Toptions } from "../../../gadget/Gadget_def"
 import { DGrid_body } from "./DGrid_body"
 import { TGridRowData } from "./DGrid_data_base"
 import { DGrid_display } from "./DGrid_display"
@@ -20,7 +20,7 @@ export class DGrid {
     private _head:DGrid_head
     private _body:DGrid_body
     private _field:DGrid_field
-   private _display:DGrid_display
+    private _display:DGrid_display
     //*************************************************************************
     constructor(gadget:Gadget) {
         this._gadget = gadget

@@ -1,21 +1,19 @@
-import Gen from "../../../general/Gen"
-import { STElement, STObjectAny } from "../../../general/STypes"
-import CComponent from "../../components_base/CComponent"
+import Gen from "../../../../general/Gen"
+import { STElement, STObjectAny } from "../../../../general/STypes"
+import CComponent from "../../../components_base/CComponent"
 import * as React from "react";
-import Log from "../../../general/Log";
-import GString from "../../../general/GString";
+import Log from "../../../../general/Log";
+import GString from "../../../../general/GString";
 import { renderToString } from 'react-dom/server';
 import { useEffect } from 'react';
-import Gadget_constants from "../../gadget/Gadget_constants";
-import { DGrid } from "../../gadget/gadget_data/dgrid/DGrid";
+import Gadget_constants from "../../../gadget/Gadget_constants";
+import { DGrid } from "../logic/DGrid";
 /*
 Style examples.
 https://divtable.com/table-styler/
 */
 
     export default class CGrid extends CComponent {
-//*************************************************************************
-    //_classname2: string|null =null
 //*************************************************************************
     private _dgrid:DGrid
     constructor(props: any) {
@@ -31,19 +29,16 @@ https://divtable.com/table-styler/
         this.event.ctrl_command(event)
     }
     //*************************************************************************
-    private _cellBodyClick = (row:number, col:number) => {
+    private _on_body_cell_click = (row:number, col:number) => {
         this._dgrid.body().set_selected(true, row)
         this._dgrid.body().on_clicked(row,col)
     }
     //*************************************************************************
-    /*
-    private _filterOnClick=(col:number) => {
-        const value=""
-        this._dgrid.display().set_col_filter(col,value)
-        this.setState({text: value})
-        this.gadget.forceUpdate()
+    private _edit_on_change(event:STObjectAny, row:number, col:number) {
+        const value=event.target.value
+        this._dgrid.body().set(row,col,value)
+        this.gadget.render()
     }
-    */
     //*************************************************************************
     private _sortIconOnClick = (col:number) => {
         if (this._dgrid.display().get_sort_col()==col) {
@@ -70,17 +65,6 @@ https://divtable.com/table-styler/
         this._dgrid.display().set_col_filter(col,value)
     }
     //*************************************************************************
-    /*
-    private _keyDown(event: STObjectAny) {
-        // Handle key down events
-        if (event.key === "ArrowDown") {
-            this._dgrid.body().roll_selection(1)
-        } else if (event.key === "ArrowUp") {
-            this._dgrid.body().roll_selection(-1)
-        }
-    }
-        */
-    //*************************************************************************
     _get_title_elements():STElement[] {
         const cols: STElement[] = []
         const sort_dir:number=this._dgrid?.display().get_sort_direction() as number
@@ -104,7 +88,7 @@ https://divtable.com/table-styler/
                     //Add filter icons.
                     icons.push(<label key={this.key(["fil0",c,r])}>&nbsp;</label>)
                     icons.push(<img src="/images/gadgets/ggrid/search.svg" key={this.key(["fil1",c,r])} className="GGrid-icon"
-                        onClick={(event) => this._filterIconOnClick(c)}
+                                    onClick={(event) => this._filterIconOnClick(c)}
                     />)
 
                     //Add search entry data icon.
@@ -138,15 +122,36 @@ https://divtable.com/table-styler/
             let data:string=this._dgrid.body().getString(row,c)
             let filter:string|null=this._dgrid.display().get_col_filter(c)
             if (filter==null) filter=this._dgrid.display().get_general_filter_display()
-            if (filter) {
+        
+            if (this._dgrid.body().is_editing_cell(row,c)) {
+                columns.push(
+                    <td key={this.key(["td",row,c])}
+                        onClick={(event) => this._on_body_cell_click(row, c)}
+                    >
+                        <input key={this.key(["edit"])}
+                            onChange={(event)=>this._edit_on_change(event,row,c)}
+                            value={data}
+                            className={this.gadget.def.class_name_add_concat("GEdit")}
+                        />
+
+                    </td>
+                )
+            } else if (c===0 && data.length===0) {
+                columns.push(
+                    <td key={this.key(["td",c,row])}
+                        onClick={(event) => this._on_body_cell_click(row, c)}
+                    >
+                        &nbsp;
+                    </td>
+                )
+            } else if (filter) {
                 while (data.length>0) {
                     this.count_match++
                     const i=this._dgrid.display().get_filter_position(filter,data)
                     if (i>=0) {
                         body.push(<span key={this.key(["nor",i,c,row,this.count_match])}>{data.substring(0,i)}</span>)
                         body.push(<span key={this.key(["enh",i,c,row,this.count_match])} className="GGrid-filter-match">{data.substring(i,i+filter.length)}</span>)
-                        data=data.substring(i+filter.length,data.length
-                        )
+                        data=data.substring(i+filter.length,data.length)
                     } else {
                         body.push(<span key={this.key(["nor",i,c,row,this.count_match])}>{data}</span>)
                         data=""
@@ -154,7 +159,7 @@ https://divtable.com/table-styler/
                 }
                 columns.push(
                     <td key={this.key(["td",c,row])}
-                        onClick={(event) => this._cellBodyClick(row, c)}
+                        onClick={(event) => this._on_body_cell_click(row, c)}
                     >
                         {body}
                     </td>
@@ -163,7 +168,7 @@ https://divtable.com/table-styler/
             } else {
                 columns.push(
                     <td key={this.key(["td",c,row])}
-                        onClick={(event) => this._cellBodyClick(row, c)}
+                        onClick={(event) => this._on_body_cell_click(row, c)}
                     >
                         {data}
                     </td>

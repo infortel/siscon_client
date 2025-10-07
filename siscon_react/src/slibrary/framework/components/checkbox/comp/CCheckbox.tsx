@@ -1,7 +1,7 @@
 import * as React from "react"
-import { STElement, STObjectAny } from "../../../general/STypes"
-import CComponent from "../../components_base/CComponent"
-import Gadget_constants from "../../gadget/Gadget_constants"
+import { STElement, STObjectAny } from "../../../../general/STypes"
+import CComponent from "../../../components_base/CComponent"
+import Gadget_constants from "../../../gadget/Gadget_constants"
 
 
 //type STControlEvent = (event: GComponentEvent) => void

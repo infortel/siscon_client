@@ -4,12 +4,12 @@ import Gen from "../../../slibrary/general/Gen";
 import Gadgets from "../../../slibrary/framework/gadgets/Gadgets";
 import Log from "../../../slibrary/general/Log";
 import Login_Constants, { T_Login_da } from "../../module/login/core/Login_Constants";
-import GPopup_Windows from "../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import Param from "../../common/Param";
 import Page_Name from "../../common/generals/Page_Name";
 import { STCallBack_Success, STNull } from "../../../slibrary/general/STypes";
 import Gadget from "../../../slibrary/framework/gadget/Gadget";
-import GPopup_Window from "../../../slibrary/framework/popup_windows/GPopup_Window";
+import GPopup_Window from "../../../slibrary/framework/components/popup/logic/GPopup_Window";
 import GObject from "../../../slibrary/general/GObject";
 import { Login_Commands } from "../../module/login/core/Login_Commands";
 

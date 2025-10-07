@@ -1,8 +1,8 @@
-import { STElement, STNull, STObjectAny } from '../../../general/STypes';
-import CComponent from "../../components_base/CComponent"
-import GPopup_Window from '../../popup_windows/GPopup_Window';
-import GPopup_Windows from '../../popup_windows/GPopup_Windows';
-import Gadget_drag from '../../gadget/Gadget_drag';
+import { STElement, STNull, STObjectAny } from '../../../../general/STypes';
+import CComponent from "../../../components_base/CComponent"
+import GPopup_Window from '../logic/GPopup_Window';
+import GPopup_Windows from '../logic/GPopup_Windows';
+import Gadget_drag from '../../../gadget/Gadget_drag';
 import React from 'react';
 
 export default class CPopup extends CComponent {

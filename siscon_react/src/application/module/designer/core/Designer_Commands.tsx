@@ -1,7 +1,7 @@
 import Gadgets from "../../../../slibrary/framework/gadgets/Gadgets"
 import Gadget from "../../../../slibrary/framework/gadget/Gadget"
 import Log from "../../../../slibrary/general/Log"
-import GPopup_Windows from "../../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import Designer from "./Designer";
 import Document_Properties_Commands from "../properties/Document_Properties_Commands";
 import Element_Properties_Commands from "../properties/Element_Properties_Commands";
@@ -139,8 +139,8 @@ export default class Designer_Commands extends Commands_General {
         //Change document properties
         if (Designer_Commands._check_document_exist()) {
             GPopup_Windows.open("Document Properties", Page_Name.DESIGNER_DOCUMENT_PROPERTIES, new Document_Properties_Commands(this._master), true, (popup_window) => {
-                Properties_Library.gadgets_to_editing(popup_window!,
-                        Designer.designing_gadgets!._definition.head)
+                popup_window!.gadgets.data_to_gadgets(Properties_Library._TABLE_EDIT, Designer.designing_gadgets!._definition.head)
+                Properties_Library.show_hide_gadgets(popup_window!)
             })
         }
     }
@@ -157,7 +157,7 @@ export default class Designer_Commands extends Commands_General {
                             Properties_Library.show_hide_gadgets(popup_window!)
                         }) 
                     }
-                    Properties_Library.gadgets_to_editing(popup_window!, property_gadget!.def.def())
+                    popup_window!.gadgets.data_to_gadgets(Properties_Library._TABLE_EDIT, property_gadget!.def.def())
                 })
             } else {
                 Log.alert("You need to select at least one element.")

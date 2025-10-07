@@ -9,6 +9,8 @@ export class DGrid_body extends DGrid_data_base {
     private static SELECTION_COUNT_MULTI_SELECTION=-1 
     _selected: number[] = []
     _selection_count:number=0
+    private _editing_col:number=-1
+    private _editing_row:number=-1
     //*************************************************************************
     constructor(dgrid:DGrid) {
         super(dgrid)
@@ -16,8 +18,20 @@ export class DGrid_body extends DGrid_data_base {
         this.adjust_row_count()
     }
     //*************************************************************************
+    public is_editing_cell(row:number, col:number):boolean {
+        return (this._editing_row===row && this._editing_col===col)
+    }
+    //*************************************************************************
     public on_clicked(row:number, col:number) {
-        if (this.dgrid.gadget().get_on_selected()) this.dgrid.gadget().get_on_selected()!()
+        if (!this.dgrid.gadget().gadgets().is_designing()) {
+            if (this.dgrid.gadget().def.readonly()) {
+                if (this.dgrid.gadget().get_on_selected()) this.dgrid.gadget().get_on_selected()!()
+            } else {
+                this._editing_row=row
+                this._editing_col=col
+                this.dgrid.gadget().render()
+            }
+        }
     }
     //*************************************************************************
     set_selection_count(count: number) {
@@ -31,13 +45,13 @@ export class DGrid_body extends DGrid_data_base {
     clear(clear_fields:boolean) {
         this.data = []
         if (clear_fields) this.dgrid.field().clear()
-        this.dgrid.gadget().activate_rendering()
+        this.dgrid.gadget().render()
     }
     //*************************************************************************
     clear_selection() {
         if (this._selected.length > 0) {
             this._selected = []
-            this.dgrid.gadget().activate_rendering()
+            this.dgrid.gadget().render()
         }
     }
     //*************************************************************************
@@ -53,7 +67,7 @@ export class DGrid_body extends DGrid_data_base {
                 this._selected[0] = newIndex
             }
         }
-        this.dgrid.gadget().activate_rendering()
+        this.dgrid.gadget().render()
     }
     //*************************************************************************
     set_selected(logic: boolean, row: number): void {
@@ -80,7 +94,7 @@ export class DGrid_body extends DGrid_data_base {
                 }
             }
 
-            this.dgrid.gadget().activate_rendering()
+            this.dgrid.gadget().render()
         }
     }
     //*************************************************************************

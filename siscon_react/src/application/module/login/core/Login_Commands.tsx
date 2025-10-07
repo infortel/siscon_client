@@ -7,7 +7,7 @@ import Ajax from "../../../common/system/ajax/Ajax";
 import Metrics from "../../../common/metrics/Metrics";
 import { $general$system$change_password } from "../../../common/system/ajax/$definitions/general/system/$general$system$change_password";
 import GObject from "../../../../slibrary/general/GObject";
-import GPopup_Windows from "../../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import Page_Name from "../../../common/generals/Page_Name";
 import SCookie from "../../../../slibrary/general/SCookie";
 import Login_Constants, { T_Login_da } from "./Login_Constants";

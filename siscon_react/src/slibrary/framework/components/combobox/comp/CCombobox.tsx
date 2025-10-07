@@ -1,11 +1,8 @@
-import CComponent from "../../components_base/CComponent";
-import GDefinitions from "../../gadget/GDefinitions";
-import GObject from "../../../general/GObject";
-import * as React from "react";
-import { STElement, STObjectAny } from "../../../general/STypes";
-import SEvaluate from "../../../sevaluations/SEvaluate";
-import Gadget_constants from "../../gadget/Gadget_constants";
-import { renderToString } from 'react-dom/server';
+import CComponent from "../../../components_base/CComponent";
+import GObject from "../../../../general/GObject";
+import { STElement, STObjectAny } from "../../../../general/STypes";
+import Gadget_constants from "../../../gadget/Gadget_constants";
+import Gadget_def from "../../../gadget/Gadget_def";
 
 export default class CCombobox extends CComponent {
     constructor(props:any) {
@@ -29,17 +26,21 @@ export default class CCombobox extends CComponent {
 
         let eleCaptions: STElement[] = []
         if (this.gadget.get_options()) {
+            let count=0
             for (const item of this.gadget.get_options()!) {
-                const key = this.key(["option",item.value])
-                eleCaptions.push(<option value={item.value} key={key}>{item.caption}</option>)
+                eleCaptions.push(<option value={item.value} key={this.key(["option",count])}>{item.caption}</option>)
+                count++
             }
         }
 
         let size=0
-        if (this.gadget.isGListbox()) size = this.gadget.def.rows() ?? 0;
+        if (this.gadget.isListbox()) size = this.gadget.def.rows() ?? 0;
 
         let value=this.gadget.get_value()
         if (GObject.isInvalid(value)) value=""
+        
+        let styleOuter={...this.get_style_outer(), ...this.get_style()}
+        styleOuter=CComponent.add_style_flex(styleOuter,this.gadget.def.orientation() ?? Gadget_def.ORIENTATION.column)
 
         let style = { ...this.get_style(), ...this.get_style_size() }
         if (this.gadget.def.readonly()) style={ ...style, ...Gadget_constants.READONLY_STYLE}
@@ -47,7 +48,6 @@ export default class CCombobox extends CComponent {
         let classname = ""
         if (isCombobox) classname = "GCombobox"; else classname="GListbox"
         classname = this.gadget.def.class_name_add_concat(classname)
-
         let result: STElement = (
             <div onClick={this.event.ctrl_area_click}
                 style={this.get_style_outer()}
@@ -56,32 +56,19 @@ export default class CCombobox extends CComponent {
                 onMouseDown={this.event.ctrl_mousedown}
                 onMouseUp={this.event.ctrl_mouseup}
            >
-                <table style={GDefinitions.TABLE_COMPACT_STYLE}
-                    key={this.key(["table1"])}
-                    ref={this.ref_inner}
-                >
-                    <tbody>
-                <tr><td>
-                            <label className="GCombobox-caption">{this.gadget.def.caption()}</label>
-                </td></tr>
-
-                <tr><td>
-                    <select
-                                className={classname}
-                                onClick={(event: STObjectAny) => { this._eventChange(event) }}
-                                key={this.key([])}
-                                onChange={(event: any) => { this._eventChange(event) }}
-                                disabled={this.get_readonly_render()}
-                                value={value}
-                                size={size}
-                                style={style}
-                            >
-
-                        {eleCaptions}
-                    </select>
-                </td></tr>
-                </tbody>
-                </table>
+                <label className="GCombobox-caption" key={this.key(["label"])}>{this.gadget.def.caption()}</label>
+                <select
+                            className={classname}
+                            onClick={(event: STObjectAny) => { this._eventChange(event) }}
+                            key={this.key([])}
+                            onChange={(event: any) => { this._eventChange(event) }}
+                            disabled={this.get_readonly_render()}
+                            value={value}
+                            size={size}
+                            style={style}
+                        >
+                    {eleCaptions}
+                </select>
             </div>
         )
         return result

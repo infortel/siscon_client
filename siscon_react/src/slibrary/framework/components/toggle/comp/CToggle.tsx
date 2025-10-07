@@ -1,11 +1,11 @@
-import CComponent from "../../components_base/CComponent"
-import GDefinitions from "../../gadget/GDefinitions";
-import Gadget from "../../gadget/Gadget";
+import CComponent from "../../../components_base/CComponent"
+import GDefinitions from "../../../gadget/GDefinitions";
+import Gadget from "../../../gadget/Gadget";
 import * as React from "react";
-import { STElement, STObjectAny } from "../../../general/STypes";
-import Gen from "../../../general/Gen";
-import GObject from "../../../general/GObject";
-import Gadget_constants from "../../gadget/Gadget_constants";
+import { STElement, STObjectAny } from "../../../../general/STypes";
+import Gen from "../../../../general/Gen";
+import GObject from "../../../../general/GObject";
+import Gadget_constants from "../../../gadget/Gadget_constants";
 
 export default class CToggle extends CComponent {
     constructor(props:any) {

@@ -1,4 +1,4 @@
-import Gadget from "../../Gadget"
+import Gadget from "../../../gadget/Gadget"
 import Attach from "./Attach"
 
 export class GAttachGeneral {

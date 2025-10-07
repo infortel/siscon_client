@@ -1,8 +1,8 @@
-import { CTreeItem } from "../../../slibrary/framework/components/ctree/CTree_Inter"
+import { CTreeItem } from "../../../slibrary/framework/components/tree/comp/CTree_Inter"
 import Gadget from "../../../slibrary/framework/gadget/Gadget"
 import Gadgets from "../../../slibrary/framework/gadgets/Gadgets"
-import GPopup_Window from "../../../slibrary/framework/popup_windows/GPopup_Window"
-import GPopup_Windows from "../../../slibrary/framework/popup_windows/GPopup_Windows"
+import GPopup_Window from "../../../slibrary/framework/components/popup/logic/GPopup_Window"
+import GPopup_Windows from "../../../slibrary/framework/components/popup/logic/GPopup_Windows"
 import Log from "../../../slibrary/general/Log"
 import { STAjaxPacket, STCallBack_Success, STNull, STObjectAny } from "../../../slibrary/general/STypes"
 import T from "../../../slibrary/translate/T"
@@ -99,14 +99,14 @@ export default class Select_Company_Database {
                     const select_company_attach = this.da.select_company.get_attach_object() as unknown as Select_Company_Attach
                     select_company_attach.reset_and_render()
                     Gadgets.inst().forEach(Gadgets.LEVEL_DEEP, (gadget) => {
-                        if (gadget.isGAttach()) {
+                        if (gadget.isAttach()) {
                             const att = gadget.get_attach_object()
                             if (att instanceof Select_Company_Attach) {
                                 (att as Select_Company_Attach).reset_and_render()
                             }
                         }
                     })
-                    this.da.select_company.activate_rendering()
+                    this.da.select_company.render()
                }
             })
         } else Log.alert(T.t("Node server was not found."))

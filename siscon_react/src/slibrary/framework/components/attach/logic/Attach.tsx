@@ -1,4 +1,4 @@
-import Gadget from "../../Gadget"
+import Gadget from "../../../gadget/Gadget"
 import * as React from "react";
 import { STElement } from "../../../../general/STypes";
 

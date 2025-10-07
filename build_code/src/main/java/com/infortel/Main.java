@@ -8,7 +8,8 @@ public class Main {
         // to see how IntelliJ IDEA suggests fixing it.
         System.out.println("Making ...");
 
-        //new Create_Ajax_Constants_In_React_Code();
-        new Create_Commands_Dictionary();
+        if (false) new Create_Ajax_Constants_In_React_Code();
+        if (false) new Create_Commands_Dictionary();
+        if (true) new Convert_Previous_Page_to_new_react();
     }
 }

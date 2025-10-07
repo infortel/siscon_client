@@ -1,6 +1,6 @@
-import GPopup_Windows from "../../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import File_Explorer_Commands from "./File_Explorer_Commands";
-import GPopup_Window from "../../../../slibrary/framework/popup_windows/GPopup_Window";
+import GPopup_Window from "../../../../slibrary/framework/components/popup/logic/GPopup_Window";
 import GString from "../../../../slibrary/general/GString";
 import Gadget from "../../../../slibrary/framework/gadget/Gadget";
 import { STObjectAny, STNull, STAjaxPacket } from "../../../../slibrary/general/STypes";
@@ -10,6 +10,7 @@ import Ajax from "../../../common/system/ajax/Ajax";
 import GObject from "../../../../slibrary/general/GObject";
 import { $general$files$file_list } from "../../../common/system/ajax/$definitions/general/files/$general$files$file_list";
 import Page_Name from "../../../common/generals/Page_Name";
+import { Toptions } from "../../../../slibrary/framework/gadget/Gadget_def";
 
 //*******************************************************************************
 export type TFile_Explorer_onResult=((success:boolean, path:string|STNull)=>void)
@@ -136,26 +137,26 @@ export default class File_Explorer {
         new Ajax().call("Get file list", $.COMMAND, request, (ajax:Ajax) => {
             if (ajax.ok()) {
                 try {
-                    let fileList: string[] = [];
+                    let fileList: Toptions[] = [];
                     let valuefound: boolean = false
                     if (ajax.getResponse().files) for (let i: number = 0; i < ajax.getResponse().files.length; i++) {
                         const file: STObjectAny = ajax.getResponse().files[i]
                         let value = ""
                         if (file.type === "1") value = File_Explorer.FILE_PREFIX_DIR + file.name;
                         else value = File_Explorer.FILE_PREFIX_FILE + file.name
-                        fileList.push(value);
+                        fileList.push({value:value, caption:value});
                         if (value === previousValue) valuefound = true;
                     }
 
 
                     if (directory_path.length > 0) {
-                        fileList.unshift(File_Explorer.FILE_UPPER)
+                        fileList.unshift({value:File_Explorer.FILE_UPPER, caption:File_Explorer.FILE_UPPER})
                     }
 
 
-                    this.da.files.set_options_from_string_array(fileList)
+                    this.da.files.set_options(fileList)
                     if (!valuefound) {
-                        if (fileList.length > 0) this.da.files.set_value(fileList[0])
+                        if (fileList.length > 0) this.da.files.set_value(fileList[0].value)
                     } else {
                         this.da.files.set_value(previousValue)
                     }

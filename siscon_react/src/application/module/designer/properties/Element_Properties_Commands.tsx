@@ -1,11 +1,11 @@
 import Designer from "../core/Designer";
 import Log from "../../../../slibrary/general/Log"
-import GPopup_Windows from "../../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import Commands from "../../../../slibrary/framework/general/Commands";
 import Properties_Library from "./Properties_Library";
 import Commands_General from "../../../common/commands/Commands_General";
 import Gadget from "../../../../slibrary/framework/gadget/Gadget";
-import GPopup_Window from "../../../../slibrary/framework/popup_windows/GPopup_Window";
+import GPopup_Window from "../../../../slibrary/framework/components/popup/logic/GPopup_Window";
 import { STAjaxPacket, STNull, STObjectAny } from "../../../../slibrary/general/STypes";
 import Gadgets from "../../../../slibrary/framework/gadgets/Gadgets";
 import Page_Name from "../../../common/generals/Page_Name";
@@ -13,7 +13,7 @@ import { Grid_Selector } from "../../../dialogs/grid_selector/Grid_Selector";
 import T from "../../../../slibrary/translate/T";
 import { $general$files$read_relative_file } from "../../../common/system/ajax/$definitions/general/files/$general$files$read_relative_file";
 import Ajax from "../../../common/system/ajax/Ajax";
-import { DGrid } from "../../../../slibrary/framework/gadget/gadget_data/dgrid/DGrid";
+import { DGrid } from "../../../../slibrary/framework/components/grid/logic/DGrid";
 
 export default class Element_Properties_Commands extends Commands_General {
     //***************************************************************************
@@ -33,7 +33,7 @@ export default class Element_Properties_Commands extends Commands_General {
                 if (designing_gadget.is_selected()) {
                     const initialType = designing_gadget.def.type()
                     const popup = GPopup_Windows.get(Page_Name.DESIGNER_ELEMENT_PROPERTIES)
-                    Properties_Library.editing_to_gadgets(popup!, designing_gadget.def.def())
+                    popup!.gadgets.gadgets_to_data(Properties_Library._TABLE_EDIT, designing_gadget.def.def())
                     if (initialType!==designing_gadget.def.type()) {
                         designing_gadget.re_construct()
                     }

@@ -1,13 +1,13 @@
 import * as React from "react";
-import { STObjectAny, STElement } from "../../../general/STypes";
-import CComponent from "../../components_base/CComponent";
-import CCombobox from "../ccombobox/CCombobox";
-import SEvaluate from "../../../sevaluations/SEvaluate";
-import GObject from "../../../general/GObject";
-import Gadget_constants from "../../gadget/Gadget_constants";
-import GDefinitions from "../../gadget/GDefinitions";
-import Gadget from "../../gadget/Gadget";
-import Gadget_def from "../../gadget/Gadget_def";
+import { STObjectAny, STElement } from "../../../../general/STypes";
+import CComponent from "../../../components_base/CComponent";
+import CCombobox from "../../combobox/comp/CCombobox";
+import SEvaluate from "../../../../sevaluations/SEvaluate";
+import GObject from "../../../../general/GObject";
+import Gadget_constants from "../../../gadget/Gadget_constants";
+import GDefinitions from "../../../gadget/GDefinitions";
+import Gadget from "../../../gadget/Gadget";
+import Gadget_def from "../../../gadget/Gadget_def";
 
 export default class CListbox extends CComponent {
     //Reviewed Sep.24/2025
@@ -32,14 +32,15 @@ export default class CListbox extends CComponent {
 
         let eleCaptions: STElement[] = []
         if (this.gadget.get_options()) {
+            let count=0
             for (const item of this.gadget.get_options()!) {
-                const key = this.key(["option",item.value])
-                eleCaptions.push(<option value={item.value} key={key}>{item.caption}</option>)
+                eleCaptions.push(<option value={item.value} key={this.key(["option",count])}>{item.caption}</option>)
+                count++
             }
         }
 
         let size=0
-        if (this.gadget.isGListbox()) size = this.gadget.def.rows() ?? 0;
+        if (this.gadget.isListbox()) size = this.gadget.def.rows() ?? 0;
 
         let value=this.gadget.get_value()
         if (GObject.isInvalid(value)) value=""
@@ -62,7 +63,7 @@ export default class CListbox extends CComponent {
                 onMouseDown={this.event.ctrl_mousedown}
                 onMouseUp={this.event.ctrl_mouseup}
            >
-                <label className="GCombobox-caption">{this.gadget.def.caption()}</label>
+                <label className="GCombobox-caption" key={this.key(["label"])}>{this.gadget.def.caption()}</label>
                 <select
                             className={classname}
                             onClick={(event: STObjectAny) => { this._eventClick(event) }}

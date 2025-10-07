@@ -1,4 +1,4 @@
-import Gadget from "../../Gadget"
+import Gadget from "../../../gadget/Gadget"
 
 export default class DTabs {
     private _active_index=0

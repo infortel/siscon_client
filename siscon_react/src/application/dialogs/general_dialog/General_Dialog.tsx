@@ -1,5 +1,5 @@
-import GPopup_Window from "../../../slibrary/framework/popup_windows/GPopup_Window"
-import GPopup_Windows from "../../../slibrary/framework/popup_windows/GPopup_Windows"
+import GPopup_Window from "../../../slibrary/framework/components/popup/logic/GPopup_Window"
+import GPopup_Windows from "../../../slibrary/framework/components/popup/logic/GPopup_Windows"
 import Log from "../../../slibrary/general/Log"
 import { STNull } from "../../../slibrary/general/STypes"
 import Page_Name from "../../common/generals/Page_Name"

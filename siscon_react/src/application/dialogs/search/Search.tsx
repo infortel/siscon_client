@@ -1,9 +1,9 @@
-import CGrid from "../../../slibrary/framework/components/cgrid/CGrid"
+import CGrid from "../../../slibrary/framework/components/grid/comp/CGrid"
 import Gadget from "../../../slibrary/framework/gadget/Gadget"
-import { DGrid } from "../../../slibrary/framework/gadget/gadget_data/dgrid/DGrid"
-import { TGridData } from "../../../slibrary/framework/gadget/gadget_data/dgrid/DGrid_data_base"
-import GPopup_Window from "../../../slibrary/framework/popup_windows/GPopup_Window"
-import GPopup_Windows from "../../../slibrary/framework/popup_windows/GPopup_Windows"
+import { DGrid } from "../../../slibrary/framework/components/grid/logic/DGrid"
+import { TGridRowData } from "../../../slibrary/framework/components/grid/logic/DGrid_data_base"
+import GPopup_Window from "../../../slibrary/framework/components/popup/logic/GPopup_Window"
+import GPopup_Windows from "../../../slibrary/framework/components/popup/logic/GPopup_Windows"
 import GObject from "../../../slibrary/general/GObject"
 import GString from "../../../slibrary/general/GString"
 import Log from "../../../slibrary/general/Log"
@@ -63,7 +63,7 @@ export default class Search {
                             const row = ajax.getResponse().data[0]
                             this._execute_response(Object.values(row)[0] as string)
                         } else {
-                            this._populate(ajax.getResponse().data as TGridData)
+                            this._populate(ajax.getResponse().data as TGridRowData)
                         }
                     } catch (e) {
                         Log.logExc("Search._execute_search()",e)
@@ -79,7 +79,7 @@ export default class Search {
         }
     }
     //***************************************************************************
-    _open_window(data: TGridData) {
+    _open_window(data: TGridRowData) {
         GPopup_Windows.open("Document Properties", Page_Name.DIALOG_SEARCH, new Search_Commands(this), true, (popup_window) => {
             this._popup_window = popup_window
             this.da = popup_window!.gadgets.da as Tda
@@ -137,7 +137,7 @@ export default class Search {
        
     }
     //***************************************************************************
-    private _populate_now(data: TGridData) {
+    private _populate_now(data: TGridRowData) {
         try {
             if (data) {
                 this._grid!.display().set_general_filter_display(this._pattern)

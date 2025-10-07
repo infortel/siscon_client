@@ -8,7 +8,7 @@ import java.nio.file.StandardOpenOption;
 
 public class Create_Ajax_Constants_In_React_Code {
     public static final String LOCATION_DESTINATION="../siscon_react/src/application/common/system/ajax/$definitions";
-    public static final String LOCATION_SOURCE="../siscon/src/main/java/com/siscon/common/client/command";
+    public static final String LOCATION_SOURCE="../../web/siscon/src/main/java/com/siscon/common/client/command";
 
     public final static String SEPARATE_FOLDER="$";
     //**********************************************************************************************************************
@@ -16,20 +16,25 @@ public class Create_Ajax_Constants_In_React_Code {
         try {
             File fbase = new File(LOCATION_SOURCE);
 
+            System.out.println("Creating ajax command files in react code----------------------> ");
             //Delete previous folder.
-            this.deleteDirectory(LOCATION_DESTINATION,0);
+            System.out.println("Deleting previous folders: "+LOCATION_DESTINATION);
+            int count=this.deleteDirectory(LOCATION_DESTINATION,0);
+            System.out.println("Directories and files deleted: "+count);
 
             File dbase = new File(LOCATION_DESTINATION);
+            System.out.println("Creating new file structure");
             dbase.mkdir();
-
-            processThisDirectory(fbase, "","",LOCATION_DESTINATION);
+            count=processThisDirectory(fbase, "","",LOCATION_DESTINATION);
+            System.out.println("Files created: "+count);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
     //**********************************************************************************************************************
-    private void processThisDirectory(File fbase, String namePrefix, String destinationCommand, String destinationPath) {
+    private int processThisDirectory(File fbase, String namePrefix, String destinationCommand, String destinationPath) {
         File[] files=fbase.listFiles();
+        int count=0;
         for (File file:files) {
             if (file.isDirectory()) {
                 String newFolder=destinationPath+"/"+file.getName();
@@ -38,16 +43,18 @@ public class Create_Ajax_Constants_In_React_Code {
                 String destCommand=destinationCommand;
                 if (destCommand.length()>0) destCommand+=".";
                 destCommand+=ffolder.getName();
-                processThisDirectory(file,namePrefix+file.getName()+SEPARATE_FOLDER, destCommand,newFolder);
+                count+=processThisDirectory(file,namePrefix+file.getName()+SEPARATE_FOLDER, destCommand,newFolder);
             } else {
                 String EXT=".java";
                 if (file.getName().endsWith(EXT) && (!file.getName().startsWith("_Directory"))) {
                     String baseName=file.getName().substring(0,file.getName().length()-EXT.length());
                     String name = namePrefix + baseName;
                     processThisFile(file,name, destinationCommand, destinationPath);
+                    count++;
                 }
             }
         }
+        return count;
     }
     //**********************************************************************************************************************
     private void processThisFile(File file, String namePrefix, String destinationCommand, String destinationPath) {
@@ -55,7 +62,7 @@ public class Create_Ajax_Constants_In_React_Code {
             StringBuffer destFileContent=new StringBuffer();
             Path filePath = Path.of(file.getAbsolutePath());
             StringBuffer buf = new StringBuffer(Files.readString(filePath));
-            System.out.println(namePrefix);
+            //System.out.println(namePrefix);
             while (buf.length()>0) {
                 int i=buf.indexOf("\n");
                 if (i>=0) {
@@ -143,17 +150,21 @@ public class Create_Ajax_Constants_In_React_Code {
         return(buf.toString());
     }
     //******************************************************************************
-    private void deleteDirectory(String directory, int layer) {
+    private int deleteDirectory(String directory, int layer) {
+        int count=0;
         File sfile=new File(directory);
         File[] files=sfile.listFiles();
         if (files!=null) for (File file:files) {
             if (file.isDirectory()) {
-                deleteDirectory(directory+"/"+file.getName(),layer+1);
+                count+=deleteDirectory(directory+"/"+file.getName(),layer+1);
             } else {
                 file.delete();
+                count++;
             }
         }
         sfile.delete();
+        count++;
+        return count;
     }
     //******************************************************************************
 }

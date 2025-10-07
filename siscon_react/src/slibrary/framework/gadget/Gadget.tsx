@@ -5,40 +5,36 @@ import Log from "../../general/Log";
 import { STCallBack_Basic, STElement, STNull, STObjectAny, STValue, STypes } from "../../general/STypes";
 import * as React from "react";
 import GetReactElementsFor_GadgetChildren from "../general/GetReactElementsFor_GadgetChildren";
-import CWidgetpanel from "../components/cwidgetpanel/CWidgetpanel";
-import CAttach from "../components/cattach/CAttach";
-import CButton from "../components/cbutton/CButton";
-import CCheckbox from "../components/ccheckbox/CCheckbox";
-import CCombobox from "../components/ccombobox/CCombobox";
-import CEdit from "../components/cedit/CEdit";
-import CImage from "../components/cimage/CImage";
-import CLabel from "../components/clabel/CLabel";
-import CGrid from "../components/cgrid/CGrid";
-import CListbox from "../components/clistbox/CListbox";
-import CMenutitle from "../components/cmenutitle/CMenutitle";
-import CMenuitem from "../components/cmenuitem/CMenuitem";
-import CPanel from "../components/cpanel/CPanel";
-import CWidget from "../components/cwidget/CWidget";
-import CToggle from "../components/ctoggle/CToggle";
+import CWidgetpanel from "../components/widgetpanel/comp/CWidgetpanel";
+import CAttach from "../components/attach/comp/CAttach";
+import CCheckbox from "../components/checkbox/comp/CCheckbox";
+import CCombobox from "../components/combobox/comp/CCombobox";
+import CEdit from "../components/edit/comp/CEdit";
+import CImage from "../components/image/comp/CImage";
+import CLabel from "../components/label/comp/CLabel";
+import CGrid from "../components/grid/comp/CGrid";
+import CListbox from "../components/listbox/comp/CListbox";
+import CMenutitle from "../components/menutitle/comp/CMenutitle";
+import CMenuitem from "../components/menuitem/comp/CMenuitem";
+import CPanel from "../components/panel/comp/CPanel";
+import CWidget from "../components/widget/comp/CWidget";
+import CToggle from "../components/toggle/comp/CToggle";
 import Gadget_event from "./Gadget_event";
-import Gadget_def from "./Gadget_def";
-import Gadget_drag from "./Gadget_drag";
-import CPopup from "../components/cpopup/CPopup";
+import Gadget_def, { Toptions } from "./Gadget_def";
+import CPopup from "../components/popup/comp/CPopup";
 import Gadget_metrics from "./Gadget_metrics";
-import CTree from "../components/ctree/CTree";
-import SMetrics from "../../general/SMetrics";
-import Attach from "./gadget_data/dattach/Attach";
-import DList, { Toptions } from "./gadget_data/dlist/DList";
+import CTree from "../components/tree/comp/CTree";
+import Attach from "../components/attach/logic/Attach";
 import CComponent from "../components_base/CComponent";
-import CTabs from "../components/ctab/CTabs";
-import DTabs from "./gadget_data/dtabs/DTabs";
-import { DGrid } from "./gadget_data/dgrid/DGrid";
+import CTabs from "../components/tab/comp/CTabs";
+import DTabs from "../components/tab/logic/DTabs";
+import { DGrid } from "../components/grid/logic/DGrid";
 import GString from "../../general/GString";
-import { CTextarea } from "../components/ctextarea/CTextarea";
-import { GAttachGeneral } from "./gadget_data/dattach/GAttachGeneral";
+import { CTextarea } from "../components/textarea/comp/CTextarea";
 import { AttachGeneral } from "../../../application/attach/select_company/AttachGeneral";
+import CButton from "../components/button/comp/CButton";
 //*****************************************************
-export type TGadget_Options = string[]
+//export type TGadget_Options = string[]
 //*****************************************************
 export default class Gadget {
 
@@ -50,7 +46,9 @@ export default class Gadget {
     public _gadgets: Gadgets
     public _nested_gadgets!: Gadgets|STNull
     public _nested_items!: STElement
-    public _value: STValue
+    private _value: STValue
+    private _options:Toptions[] | null=null
+
     public _key!:string
     public _children:Gadget[]=[]
     public _parent!:Gadget|STNull
@@ -88,11 +86,13 @@ export default class Gadget {
     public update_data_from_def() {
         //Set data values if needed.
         try {
+            const options_arr=this.def.options_arr()
+            this.set_options(options_arr)
             if (this.def.value()) {
                 this.set_value(this.def.value())
-            } else if (this.dlist()) {
-                if  (this.dlist()!.get_options().length>0) {
-                    this.set_value(this.dlist()!.get_options()[0].value)
+            } else if (options_arr) if (this.isListbox() || this.isCombobox()) {
+                if  (options_arr!.length>0) {
+                    this.set_value(options_arr![0].value)
                 }
             }
         } catch (e) {
@@ -107,7 +107,7 @@ export default class Gadget {
             this.metrics.set_width(GString.getNumericHtmlEquivalent(this.def.width()))
             this.metrics.set_height(GString.getNumericHtmlEquivalent(this.def.height()))
 
-            if (this.isGPopup()) {
+            if (this.isPopup()) {
                 //Activate positioning for popup's to enable floating.
                 if (!this.metrics.get_left()) this.metrics.set_left(0)
                 if (!this.metrics.get_top()) this.metrics.set_top(0)
@@ -119,9 +119,8 @@ export default class Gadget {
     //-------------------------------
     private _create_data() {
         try {
-            if (this.isGGrid()) this._data=new DGrid(this)
-            else if (this.isGTabs()) this._data=new DTabs(this)
-            else if (this.isGListbox() || this.isGCombobox()) this._data=new DList(this)
+            if (this.isGrid()) this._data=new DGrid(this)
+            else if (this.isTabs()) this._data=new DTabs(this)
             else this._data=null
         } catch (e) {
             Log.logExc("Gadget._create_data()",e)
@@ -157,25 +156,25 @@ export default class Gadget {
         return st
     }
     //*****************************************************
-    isGAttach(): boolean { return (this.def.type() === GDefinitions.GAttach) }
-    isGButton(): boolean { return (this.def.type() === GDefinitions.GButton) }
-    isGCheckbox(): boolean { return (this.def.type() === GDefinitions.GCheckbox) }
-    isGCombobox(): boolean { return (this.def.type() === GDefinitions.GCombobox) }
-    isGEdit(): boolean { return (this.def.type() === GDefinitions.GEdit) }
-    isGGrid(): boolean { return (this.def.type() === GDefinitions.GGrid) }
-    isGImage(): boolean { return (this.def.type() === GDefinitions.GImage) }
-    isGLabel(): boolean { return (this.def.type() === GDefinitions.GLabel) }
-    isGListbox(): boolean { return (this.def.type() === GDefinitions.GListbox) }
-    isGMenutitle(): boolean { return (this.def.type() === GDefinitions.GMenutitle) }
-    isGMenuitem(): boolean { return (this.def.type() === GDefinitions.GMenuitem) }
-    isGPanel(): boolean { return (this.def.type() === GDefinitions.GPanel) }
-    isGPopup(): boolean { return (this.def.type() === GDefinitions.GPopup) }
-    isGTextarea(): boolean { return (this.def.type() === GDefinitions.GTextarea) }
-    isGTabs(): boolean { return (this.def.type() === GDefinitions.GTabs) }
-    isGToggle(): boolean { return (this.def.type() === GDefinitions.GToggle) }
-    isGTree(): boolean { return (this.def.type() === GDefinitions.GTree) }
-    isGWidget(): boolean { return (this.def.type() === GDefinitions.GWidget) }
-    isGWidgetpanel(): boolean { return (this.def.type() === GDefinitions.GWidgetpanel) }
+    isAttach(): boolean { return (this.def.type() === GDefinitions.Attach) }
+    isButton(): boolean { return (this.def.type() === GDefinitions.Button) }
+    isCheckbox(): boolean { return (this.def.type() === GDefinitions.Checkbox) }
+    isCombobox(): boolean { return (this.def.type() === GDefinitions.Combobox) }
+    isEdit(): boolean { return (this.def.type() === GDefinitions.Edit) }
+    isGrid(): boolean { return (this.def.type() === GDefinitions.Grid) }
+    isImage(): boolean { return (this.def.type() === GDefinitions.Image) }
+    isLabel(): boolean { return (this.def.type() === GDefinitions.Label) }
+    isListbox(): boolean { return (this.def.type() === GDefinitions.Listbox) }
+    isMenutitle(): boolean { return (this.def.type() === GDefinitions.Menutitle) }
+    isMenuitem(): boolean { return (this.def.type() === GDefinitions.Menuitem) }
+    isPanel(): boolean { return (this.def.type() === GDefinitions.Panel) }
+    isPopup(): boolean { return (this.def.type() === GDefinitions.Popup) }
+    isTextarea(): boolean { return (this.def.type() === GDefinitions.Textarea) }
+    isTabs(): boolean { return (this.def.type() === GDefinitions.Tabs) }
+    isToggle(): boolean { return (this.def.type() === GDefinitions.Toggle) }
+    isTree(): boolean { return (this.def.type() === GDefinitions.Tree) }
+    isWidget(): boolean { return (this.def.type() === GDefinitions.Widget) }
+    isWidgetpanel(): boolean { return (this.def.type() === GDefinitions.Widgetpanel) }
     //*****************************************************
     gattach(): CAttach | null { if (this._component instanceof CAttach) return this._component; else return null }
     gbutton(): CButton | null { if (this._component instanceof CButton) return this._component; else return null }
@@ -198,7 +197,6 @@ export default class Gadget {
     gwidgetpanel(): CWidgetpanel | null { if (this._component instanceof CWidgetpanel) return this._component; else return null }
     //*****************************************************
     dgrid(): DGrid | STNull { if (this._data instanceof DGrid) return this._data; else return null }
-    dlist(): DList | STNull { if (this._data instanceof DList) return this._data; else return null }
     dtabs(): DTabs | STNull { if (this._data instanceof DTabs) return this._data; else return null }
     //*****************************************************
     execute_on_mounted(callback: STCallBack_Basic) {
@@ -237,22 +235,12 @@ export default class Gadget {
         this.reset_react_children_elements()
     }
     //*****************************************************
-    public set_options_from_string_array(option_array: string[]):void {
-        try {
-            if (this.dlist()) this.dlist()!.set_options_from_string_array(option_array)
-            this.com().setState({options:this.dlist()!.get_options()})
-        } catch (e) {
-            Log.logExc("Gadget.set_options()", e)
-        }
+    public set_options(options_arr:Toptions[]|null):void {
+        this._options=options_arr
     }
-    //*****************************************************
-    public get_options():Toptions[] | STNull {
-        try {
-            if (this.dlist()) return this.dlist()!.get_options()
-        } catch (e) {
-            Log.logExc("Gadget.get_options()", e)
-        }
-        return null
+    //======================================================
+    public get_options():Toptions[] | null {
+        return this._options
     }
     //******************************************************************
     get_first_child(): Gadget | null {
@@ -327,12 +315,20 @@ export default class Gadget {
     gadgets():Gadgets {return this._gadgets }
     //*****************************************************
     set_value(value:STValue):void {
-        this._value=value
-        if (this._component) this._component.update_state_value()
-    }
+        if (this.isGrid()) {
+            this.dgrid()!.body().set_all_rows(value,false,false)
+        } else {
+            this._value=value
+            if (this._component) this._component.update_state_value()
+        }
+   }
+    //*****************************************************
     get_value(): STValue {
-        return this._value
-        //if (!result && this.isGLabel()) this.set_value(
+        if (this.isGrid()) {
+            return this.dgrid()!.body().get_all_rows()
+        } else {
+            return this._value
+        }
     }
     //*****************************************************
     can_be_selected():boolean {
@@ -392,7 +388,7 @@ export default class Gadget {
 
     }
     //*****************************************************
-    activate_rendering() {
+    render() {
         this._activate_rendering_count++
         if (this._component) this._component.st.set_x_activate_rendering(this._activate_rendering_count)
     }

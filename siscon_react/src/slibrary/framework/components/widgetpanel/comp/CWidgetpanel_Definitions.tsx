@@ -1,14 +1,14 @@
-import Gadgets from "../../gadgets/Gadgets"
-import { STNull, STObjectAny } from "../../../general/STypes"
-import Param from "../../../../application/common/Param"
-import GString from "../../../general/GString"
-import T from "../../../translate/T"
-import Gadget from "../../gadget/Gadget"
-import Log from "../../../general/Log"
+import Gadgets from "../../../gadgets/Gadgets"
+import { STNull, STObjectAny } from "../../../../general/STypes"
+import Param from "../../../../../application/common/Param"
+import GString from "../../../../general/GString"
+import T from "../../../../translate/T"
+import Gadget from "../../../gadget/Gadget"
+import Log from "../../../../general/Log"
 import CWidgetpanel_Defaults from "./CWidgetpanel_Defaults"
-import Metrics from "../../../../application/common/metrics/Metrics"
-import GArray from "../../../general/GArray"
-import GObject from "../../../general/GObject"
+import Metrics from "../../../../../application/common/metrics/Metrics"
+import GArray from "../../../../general/GArray"
+import GObject from "../../../../general/GObject"
 
 export type T_GWidgetpanel_Def = {
     page: string
@@ -143,7 +143,7 @@ export default class CWidgetpanel_Definitions {
         if (this._matrix.length <= 0) this._matrix.push([])
         this._matrix[0].push(def)
         this._matrix_to_defs()
-        this._gadget_panel.activate_rendering()
+        this._gadget_panel.render()
     }
     //*****************************************************
     getActivity(): string | STNull {
@@ -180,13 +180,13 @@ export default class CWidgetpanel_Definitions {
                 this._activity = null
                 const gadget_widgetpanel = Gadgets.inst().get(this._name)
                 //if (gadget_widgetpanel) gadget_widgetpanel.forceUpdate()
-                this._gadget_panel.activate_rendering()
+                this._gadget_panel.render()
             }
         } else {
             this._activity = T.t("No widgets have been setup.")
             const gadget_widgetpanel = Gadgets.inst().get(this._name)
             //if (gadget_widgetpanel) gadget_widgetpanel.forceUpdate()
-            this._gadget_panel.activate_rendering()
+            this._gadget_panel.render()
         }
 
     }
@@ -269,7 +269,7 @@ export default class CWidgetpanel_Definitions {
                 this._matrix[c.col + 1].push(defs0)
                 defs0.column = c.col + 1
                 if (this._matrix[c.col].length == 0) this._matrix = GArray.delete_element(this._matrix, c.col)
-                this._gadget_panel.activate_rendering()
+                this._gadget_panel.render()
             } else if (type === "l") {
                 if (c.col > 0) {
                     const defs0 = this._matrix[c.col][c.row]
@@ -277,20 +277,20 @@ export default class CWidgetpanel_Definitions {
                     this._matrix[c.col - 1].push(defs0)
                     defs0.column = c.col - 1
                     if (this._matrix[c.col].length == 0) this._matrix=GArray.delete_element(this._matrix,c.col)
-                    this._gadget_panel.activate_rendering()
+                    this._gadget_panel.render()
                 }
             } else if (type === "c") {
                 this._matrix[c.col] = GArray.delete_element(this._matrix[c.col], c.row)
                 if (this._matrix[c.col].length == 0) this._matrix = GArray.delete_element(this._matrix, c.col)
-                this._gadget_panel.activate_rendering()
+                this._gadget_panel.render()
             }
 
             this._matrix_to_defs() 
             this._matrix = [] //This is done to reset rendering to nothing.
-            this._gadget_panel.activate_rendering()
+            this._gadget_panel.render()
             this._gadget_panel.execute_on_mounted(() => {
                 this._defs_to_matrix()
-                this._gadget_panel.activate_rendering()
+                this._gadget_panel.render()
             })
         }
     }

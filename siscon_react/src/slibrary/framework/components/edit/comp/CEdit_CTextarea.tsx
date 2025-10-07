@@ -1,9 +1,9 @@
-import GString from "../../../general/GString"
-import { STElement, STObjectAny } from "../../../general/STypes"
-import CComponent from "../../components_base/CComponent"
-import Gadget from "../../gadget/Gadget"
-import Gadget_constants from "../../gadget/Gadget_constants"
-import Gadget_def from "../../gadget/Gadget_def"
+import GString from "../../../../general/GString"
+import { STElement, STObjectAny } from "../../../../general/STypes"
+import CComponent from "../../../components_base/CComponent"
+import Gadget from "../../../gadget/Gadget"
+import Gadget_constants from "../../../gadget/Gadget_constants"
+import Gadget_def from "../../../gadget/Gadget_def"
 
 export class CEdit_CTextarea {
     _isGedit:boolean=false

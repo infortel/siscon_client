@@ -1,7 +1,7 @@
-import GString from "../../../general/GString"
-import Log from "../../../general/Log"
-import { STElement, STNull, STObjectAny } from "../../../general/STypes"
-import SEvaluate from "../../../sevaluations/SEvaluate"
+import GString from "../../../../general/GString"
+import Log from "../../../../general/Log"
+import { STElement, STNull, STObjectAny } from "../../../../general/STypes"
+import SEvaluate from "../../../../sevaluations/SEvaluate"
 import CTree from "./CTree"
 
 export type TListFromServer = {
@@ -42,7 +42,7 @@ export default class CTree_Inter {
     //*****************************************************
     populate_tree_from_tree(tree_list: CTreeItem[]) {
         this._tree = tree_list
-        this._com.gadget.activate_rendering()
+        this._com.gadget.render()
     }
     //*****************************************************
     populate_tree_from_list(list: TListFromServer[]) {
@@ -68,7 +68,7 @@ export default class CTree_Inter {
                     }                  
                 }
             }
-            this._com.gadget.activate_rendering()
+            this._com.gadget.render()
         } catch (e) {
             Log.logExc("GTree_Collection.populate_tree_from_list", e)
         }
@@ -85,7 +85,7 @@ export default class CTree_Inter {
     //*****************************************************
     expand_all(logic: boolean, depth: number) {
         this._expand_all(this._tree, logic, depth, 0)
-        this._com.gadget.activate_rendering()
+        this._com.gadget.render()
     }
     _expand_all(items: CTreeItem[], logic: boolean, depth: number, level: number) {
         if (items.length > 0) {
@@ -108,7 +108,7 @@ export default class CTree_Inter {
         } else {
             this.expand_all(true, 1)
         }
-        this._com.gadget.activate_rendering()
+        this._com.gadget.render()
     }
     _search(text: string, items: CTreeItem[]):number {
         let count = 0

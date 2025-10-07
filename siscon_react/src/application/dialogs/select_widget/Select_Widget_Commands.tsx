@@ -1,4 +1,4 @@
-import GPopup_Windows from "../../../slibrary/framework/popup_windows/GPopup_Windows"
+import GPopup_Windows from "../../../slibrary/framework/components/popup/logic/GPopup_Windows"
 import Log from "../../../slibrary/general/Log"
 import { STAjaxPacket } from "../../../slibrary/general/STypes"
 import T from "../../../slibrary/translate/T"

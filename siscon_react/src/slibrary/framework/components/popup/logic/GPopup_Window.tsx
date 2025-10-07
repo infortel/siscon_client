@@ -1,10 +1,10 @@
 
-import Gadgets from "../gadgets/Gadgets";
-import Log from "../../general/Log";
+import Gadgets from "../../../gadgets/Gadgets";
+import Log from "../../../../general/Log";
 import GPopup_Windows from "./GPopup_Windows";
-import Commands from "../general/Commands";
-import { STElement, STFunction, STFunction0, STNull, STObjectAny } from "../../general/STypes";
-import SMetrics from "../../general/SMetrics";
+import Commands from "../../../general/Commands";
+import { STElement, STFunction, STFunction0, STNull, STObjectAny } from "../../../../general/STypes";
+import SMetrics from "../../../../general/SMetrics";
 
 type Popup_Window_Create_Callback=(result:boolean)=>void
 
@@ -32,7 +32,7 @@ export default class GPopup_Window {
                 if (success) {
                     if (command_instance) this.gadgets.set_command_instance(command_instance)
                     this._create_return(callback_opened)
-                    this.gadgets.root_gadget.activate_rendering()
+                    this.gadgets.root_gadget.render()
                 } else {
                     if (callback_opened) callback_opened(false)
                 }
@@ -116,7 +116,7 @@ export default class GPopup_Window {
 
         this.gadgets.root_gadget.metrics.set_left(x1);
         this.gadgets.root_gadget.metrics.set_top(y1);
-        this.gadgets.root_gadget.activate_rendering();
+        this.gadgets.root_gadget.render();
 
         if (finishCount<2 && count>=0) {
             setTimeout(()=>{

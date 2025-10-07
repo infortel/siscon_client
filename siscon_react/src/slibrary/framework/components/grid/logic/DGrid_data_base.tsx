@@ -24,6 +24,10 @@ export class DGrid_data_base {
         }
     }
     //*************************************************************************
+    public get_all_rows():TGridRowData {
+        return this.data
+    }
+    //*************************************************************************
     public set_all_rows(data: TGridRowData, populate_fields:boolean, assign_head_fields:boolean) {
         this.data = data
         if (populate_fields) this.dgrid.field().populate(data)

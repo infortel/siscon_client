@@ -1,6 +1,6 @@
 import { STNull, STObjectAny } from "../../general/STypes"
-import CWidget from "../components/cwidget/CWidget"
-import CWidgetpanel from "../components/cwidgetpanel/CWidgetpanel"
+import CWidget from "../components/widget/comp/CWidget"
+import CWidgetpanel from "../components/widgetpanel/comp/CWidgetpanel"
 import GDefinitions from "./GDefinitions"
 import Gadget from "./Gadget"
 
@@ -95,7 +95,7 @@ export default class Gadget_drag {
                         metrics.set_height(metrics.get_height_or_mounted()+adjH)
                         render=true
                     }
-                    if (render) this._dragging_gadget.activate_rendering()
+                    if (render) this._dragging_gadget.render()
 
                 }
             }
@@ -121,7 +121,7 @@ export default class Gadget_drag {
                 child_adj.height++
             }
             if (render) {
-                gadget.activate_rendering()
+                gadget.render()
             }
             this._adjust_children(gadget,adjW,adjH,child_adj)
         }

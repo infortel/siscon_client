@@ -1,7 +1,7 @@
-import CComponent from "../../components_base/CComponent"
-import GString from "../../../general/GString";
+import CComponent from "../../../components_base/CComponent"
+import GString from "../../../../general/GString";
 import * as React from "react";
-import { STElement, STObjectAny } from "../../../general/STypes";
+import { STElement, STObjectAny } from "../../../../general/STypes";
 
 export default class CImage extends CComponent {
     constructor(props:any) {

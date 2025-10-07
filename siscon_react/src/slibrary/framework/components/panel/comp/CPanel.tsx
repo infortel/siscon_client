@@ -1,10 +1,10 @@
-import CComponent from "../../components_base/CComponent"
-import Log from "../../../general/Log";
-import GPopup_Windows from "../../popup_windows/GPopup_Windows";
-import { STObjectAny, STElement, STypes } from "../../../general/STypes";
-import { Embedded } from "../../general/Embedded";
+import CComponent from "../../../components_base/CComponent"
+import Log from "../../../../general/Log";
+import GPopup_Windows from "../../popup/logic/GPopup_Windows";
+import { STObjectAny, STElement, STypes } from "../../../../general/STypes";
+import { Embedded } from "../../../general/Embedded";
 import * as React from "react";
-import Gadget from "../../gadget/Gadget";
+import Gadget from "../../../gadget/Gadget";
 
 export default class CPanel extends CComponent {
     constructor(props:any) {
@@ -82,7 +82,7 @@ export default class CPanel extends CComponent {
 
                 let classname = this.gadget.def.class_name_add_concat("GPanel")
                 let caption=this.gadget.def.caption() ?? ""
-                if (this.gadget.get_parent() && this.gadget.get_parent()?.isGTabs()) caption=""
+                if (this.gadget.get_parent() && this.gadget.get_parent()?.isTabs()) caption=""
 
                 let result: STElement =
                     <div 

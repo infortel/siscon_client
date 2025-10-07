@@ -1,8 +1,8 @@
-import CComponent from "../../components_base/CComponent"
-import getFromServer from "../../../server_interface/LServer";
-import Param from "../../../../application/common/Param";
+import CComponent from "../../../components_base/CComponent"
+import getFromServer from "../../../../server_interface/LServer";
+import Param from "../../../../../application/common/Param";
 import * as React from "react";
-import { STElement } from "../../../general/STypes";
+import { STElement } from "../../../../general/STypes";
 
 export default class CTest extends CComponent {
     constructor(props:any) {

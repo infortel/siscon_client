@@ -1,5 +1,5 @@
-import CComponent from "../../components_base/CComponent"
-import { CEdit_CTextarea } from "../cedit_ctextarea/CEdit_CTextarea"
+import CComponent from "../../../components_base/CComponent"
+import { CEdit_CTextarea } from "./CEdit_CTextarea"
 
 
 export default class CEdit extends CComponent {

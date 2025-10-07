@@ -9,8 +9,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class Create_Commands_Dictionary {
     public static final String LOCATION_SOURCE="../siscon_react/src";
-    public static final String LOCATION_FORM="../siscon/src/main/webapp/original/server/client/react/help/script_functions.json";
+    public static final String LOCATION_FORM="../../web/siscon/src/main/webapp/original/server/client/react/help/script_functions.json";
     private All all=new All();
+
+    private int directoryCount=0;
+    private int fileCount=0;
     //**********************************************************************************************************************
     private class Record {
         public String description;
@@ -24,10 +27,16 @@ public class Create_Commands_Dictionary {
     //**********************************************************************************************************************
     public Create_Commands_Dictionary() {
         try {
+            System.out.println("Creating command dictionary---------------------------->");
             File fbase = new File(LOCATION_SOURCE);
+            if (fbase.isDirectory()) {
+                processThisDirectory(fbase);
+                System.out.println("Dictionary processed: directories="+directoryCount+" files="+fileCount);
+                saveJsonResult();
+            } else {
+                System.out.println("Folder not found: "+fbase.getAbsolutePath());
+            }
 
-            processThisDirectory(fbase);
-            saveJsonResult();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -36,7 +45,9 @@ public class Create_Commands_Dictionary {
     private void saveJsonResult() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(LOCATION_FORM), all);
+            File file=new File(LOCATION_FORM);
+            System.out.println("Saving result in "+file.getAbsolutePath());
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, all);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -95,6 +106,7 @@ public class Create_Commands_Dictionary {
         File[] files=fbase.listFiles();
         for (File file:files) {
             if (file.isDirectory()) {
+                directoryCount++;
                 processThisDirectory(file);
             } else {
                 if (file.getName().indexOf("Commands")>=0) processThisFile(file);
@@ -104,6 +116,7 @@ public class Create_Commands_Dictionary {
     //**********************************************************************************************************************
     private void processThisFile(File file) {
         try {
+            fileCount++;
             StringBuffer shortPath=new StringBuffer(file.getAbsolutePath().replaceAll("\\\\","/"));
             if (!extract(shortPath,"/application/")) {
                 extract(shortPath,"/slibrary/");

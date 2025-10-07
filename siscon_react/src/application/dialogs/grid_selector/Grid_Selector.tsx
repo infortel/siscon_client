@@ -1,7 +1,7 @@
 import Gadget from "../../../slibrary/framework/gadget/Gadget";
-import { DGrid } from "../../../slibrary/framework/gadget/gadget_data/dgrid/DGrid";
-import GPopup_Window from "../../../slibrary/framework/popup_windows/GPopup_Window";
-import GPopup_Windows from "../../../slibrary/framework/popup_windows/GPopup_Windows";
+import { DGrid } from "../../../slibrary/framework/components/grid/logic/DGrid";
+import GPopup_Window from "../../../slibrary/framework/components/popup/logic/GPopup_Window";
+import GPopup_Windows from "../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import Log from "../../../slibrary/general/Log";
 import { STCallBack_String, STNull, STObjectAny } from "../../../slibrary/general/STypes";
 import T from "../../../slibrary/translate/T";

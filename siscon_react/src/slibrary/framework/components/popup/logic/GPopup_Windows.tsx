@@ -1,8 +1,8 @@
 import GPopup_Window from "./GPopup_Window";
-import Gadgets from "../gadgets/Gadgets";
-import Log from "../../general/Log";
-import { STCallBack_Success, STClass, STNull, STypes } from "../../general/STypes";
-import Commands from "../general/Commands";
+import Gadgets from "../../../gadgets/Gadgets";
+import Log from "../../../../general/Log";
+import { STCallBack_Success, STClass, STNull, STypes } from "../../../../general/STypes";
+import Commands from "../../../general/Commands";
 
 export type Popup_Windows_Open_Callback=(popup_window:GPopup_Window|STNull)=>void
 

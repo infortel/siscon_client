@@ -1,7 +1,7 @@
 import Gadget from "../../../../slibrary/framework/gadget/Gadget";
-import GPopup_Window from "../../../../slibrary/framework/popup_windows/GPopup_Window";
+import GPopup_Window from "../../../../slibrary/framework/components/popup/logic/GPopup_Window";
 import { STNull, STObjectAny } from "../../../../slibrary/general/STypes";
-import GPopup_Windows from "../../../../slibrary/framework/popup_windows/GPopup_Windows";
+import GPopup_Windows from "../../../../slibrary/framework/components/popup/logic/GPopup_Windows";
 import T from "../../../../slibrary/translate/T";
 import Ajax from "../../../common/system/ajax/Ajax";
 import Log from "../../../../slibrary/general/Log";
@@ -11,7 +11,7 @@ import { Utility } from "../../../../slibrary/framework/general/Utility";
 import { Sql_Monitor_Commands } from "./Sql_Monitor_Commands";
 import Page_Name from "../../../common/generals/Page_Name";
 import Param from "../../../common/Param";
-import { DGrid } from "../../../../slibrary/framework/gadget/gadget_data/dgrid/DGrid";
+import { DGrid } from "../../../../slibrary/framework/components/grid/logic/DGrid";
 
 
 export type Tda = {

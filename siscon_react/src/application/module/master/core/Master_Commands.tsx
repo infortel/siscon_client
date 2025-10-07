@@ -23,7 +23,7 @@ export default class Master_Commands extends Commands_General {
         const request:STAjaxPacket={}
         Gadgets.inst().forEach(Gadgets.LEVEL_BASIC, (gadget)=>{
             let table: string|STNull = gadget.def.table()
-            let field: string|STNull= gadget.def.field()
+            let field: string|STNull= gadget.def.field0()
             if ((table) && (field)) {
                 //if (!(datas[table])) datas[table]=[]
                 if (!(GObject.getObjectValue(request, table))) GObject.setObjectValue(request,table,[])
@@ -42,7 +42,7 @@ export default class Master_Commands extends Commands_General {
         let datas=result["datas"]
         Gadgets.inst().forEach(Gadgets.LEVEL_BASIC, (gadget)=>{
             let table=gadget.def.table()
-            let field = gadget.def.field()
+            let field = gadget.def.field0()
             if ((table)&&(field)) {
                 if (datas[table]) {
                     let value=datas[table][field]
@@ -58,7 +58,7 @@ export default class Master_Commands extends Commands_General {
         let request:STAjaxPacket={}
         Gadgets.inst().forEach(Gadgets.LEVEL_BASIC, (gadget)=>{
             let table = gadget.def.table()
-            let field = gadget.def.field()
+            let field = gadget.def.field0()
             if ((table) && (field)) if (gadget.get_modifications() > 0) {
                 //if (!(datas[table])) datas[table] = {}
                 if (!(GObject.getObjectValue(request, table))) GObject.setObjectValue(request, table, {})

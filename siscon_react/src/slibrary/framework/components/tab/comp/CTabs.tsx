@@ -1,10 +1,10 @@
-import CComponent from "../../components_base/CComponent"
-import Log from "../../../general/Log";
+import CComponent from "../../../components_base/CComponent"
+import Log from "../../../../general/Log";
 import * as React from "react";
-import { STElement, STObjectAny, STypes } from "../../../general/STypes";
-import GDefinitions from "../../gadget/GDefinitions";
-import Gadget from "../../gadget/Gadget";
-import GObject from "../../../general/GObject";
+import { STElement, STObjectAny, STypes } from "../../../../general/STypes";
+import GDefinitions from "../../../gadget/GDefinitions";
+import Gadget from "../../../gadget/Gadget";
+import GObject from "../../../../general/GObject";
 
 export default class CTabs extends CComponent {
     constructor(props:any) {

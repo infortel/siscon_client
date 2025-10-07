@@ -1,12 +1,18 @@
 import Metrics from "../../../application/common/metrics/Metrics";
 import GObject from "../../general/GObject";
 import GString from "../../general/GString";
+import Log from "../../general/Log";
 import SMetrics from "../../general/SMetrics";
 import { STNull, STObjectAny } from "../../general/STypes";
 import SEvaluate from "../../sevaluations/SEvaluate";
 import T from "../../translate/T";
 import Gadgets from "../gadgets/Gadgets";
 import Gadget from "./Gadget";
+
+export type Toptions = {
+    value: string,
+    caption: string,
+}
 
 export default class Gadget_def {
     //*****************************************************
@@ -78,7 +84,7 @@ export default class Gadget_def {
             root.def.show_hide_children__all(logic)
         }
     }
-    field(): string | null { return this._def.field ?? null }
+
     format(): string | null { return this._def.format ?? null }
     gap(): string | null { return this._def.gap ?? null }
     heading_rows(): number { if (GObject.isValid(this._def.heading_rows)) return GObject.toNumber(this._def.heading_rows); else return 0 }
@@ -98,38 +104,11 @@ export default class Gadget_def {
     movable(): boolean {
         if (this.gadget.gadgets().is_designing()) return false
         if (GObject.isValid(this._def.movable)) return this._def.movable
-        else if (this.gadget.isGPopup()) return true
+        else if (this.gadget.isPopup()) return true
         return false
     }
     notes(): string | null { return this._def.notes ?? null }
-    options(): string[] | STNull {
-        if (GObject.isValid(this._def.options)) {
-            let res:string[] | STNull
-            if (Array.isArray(this._def.options)) {
-                res=this._def.options
-            } else {
-                let options: string[] | STNull = null;
-                options = this._def.options.split("\n")
-                res=options
-            }
-            if (res) {
-                //Translate valued.
-                let res2:string[]=[]
-                for (let ent of res) {
-                    let sp=ent.split("=");
-                    if (sp.length===2) {
-                        res2.push(sp[0]+"="+this.gadget.gadgets().translate(sp[1]))
-                    } else {
-                        res2.push(ent)
-                    }
-                }
-                res=res2
-            }
-            return res
-        } else {
-            return null
-        }
-    }
+
     orientation(): string | null { return this._def.orientation ?? null }
     padding(): string | null { return this._def.padding ?? null }
     password(): string | null { return this._def.password ?? null }
@@ -205,6 +184,63 @@ export default class Gadget_def {
     height_pro(): string | null { return this._def.height_pro ?? null }
         
     //*****************************************************
+    field0(): string | null { 
+        const result=this.field_ind(0)?.field ?? null
+        return result
+    }
+    //*****************************************************
+    fields(): STObjectAny | null {
+        return this._def.fields ?? null
+    }
+    //*****************************************************
+    field_ind(index:number): STObjectAny | null {
+        if (Array.isArray(this._def.fields)) {
+            if (index<this._def.fields.length) return this._def.fields[index] ?? null; else return null 
+        } else {
+            return null
+        }
+    }
+    //*************************************************************************
+    //This function will return an array of string pair object: value, caption
+    //This will always return an array.
+    public options() { return this._def.options ?? null }
+    public options_arr(): Toptions[] | null {
+        if (this._def.options) {
+            const result:Toptions[]=[]
+            let arrayLines:string[] | STNull
+            if (Array.isArray(this._def.options)) {
+                arrayLines=this._def.options
+            } else {
+                let options: string[] | STNull = null;
+                options = this._def.options.split("\n")
+                arrayLines=options
+            }
+            if (arrayLines) {
+                for (const opt of arrayLines!) {
+                    const i=opt.indexOf("=")
+                    let value0=opt;
+                    let caption0=opt;
+                    if (i>=0) {
+                        value0=opt.substring(0,i)
+                        caption0=opt.substring(i+1,opt.length)
+                    }
+                    if (caption0.includes("[")) {
+                        caption0=SEvaluate.Str(caption0)
+                    } else {
+                        caption0=this.gadget.gadgets().translate(caption0)
+                    }
+                    let item:Toptions={caption:caption0, value:value0}
+                    result.push(item)
+                }
+            }
+            return result
+        } else {
+            return null
+        }
+    }
+    //-------------------------------------------
+   //*****************************************************
+
     /*
     width_num():number|null {
         const w=this.width()

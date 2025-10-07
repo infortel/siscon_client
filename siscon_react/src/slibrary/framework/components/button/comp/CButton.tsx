@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { STElement, STObjectAny } from '../../../general/STypes';
-import CComponent from "../../components_base/CComponent"
+import CComponent from '../../../components_base/CComponent';
+import { STElement, STObjectAny } from '../../../../general/STypes';
 
 export default class CButton extends CComponent {
     constructor(props:any) {
